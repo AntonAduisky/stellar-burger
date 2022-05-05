@@ -1,6 +1,6 @@
 #### Название проекта
 
-# ___React-Burger___
+# ___Stellar-Burger___
 
 ---
 
