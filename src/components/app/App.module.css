@@ -1,0 +1,10 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  min-width: 1280px;
+  background-color: #131316;
+  box-sizing: border-box;
+}
