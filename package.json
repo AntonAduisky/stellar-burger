@@ -1,0 +1,50 @@
+{
+  "name": "react-burger",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
+    "build": "react-scripts build",
+    "types": "npx tsc --noEmit",
+    "eject": "react-scripts eject",
+    "eslint": "eslint --quiet --fix --ext .js,.ts,.tsx .",
+    "stylelint": "stylelint src/**/*.css --fix"
+  },
+  "dependencies": {
+    "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
+    "prop-types": "^15.8.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.29",
+    "@types/react": "^16.8.6",
+    "@types/react-dom": "^16.8.6",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.9.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "react-scripts": "^5.0.1",
+    "stylelint": "^14.8.1",
+    "stylelint-config-idiomatic-order": "^8.1.0",
+    "stylelint-config-recommended": "^7.0.0",
+    "stylelint-order": "^5.0.0",
+    "typescript": "^4.6.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
