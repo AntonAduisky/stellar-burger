@@ -1,8 +1,0 @@
-.main {
-  display: flex;
-  flex: 1;
-  gap: 40px;
-  max-width: 1240px;
-  padding: 0;
-  box-sizing: border-box;
-}

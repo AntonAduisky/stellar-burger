@@ -9,9 +9,9 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyles from './BurgerConstructor.module.css';
-import { ProductType, ariaLables } from '../utils/variables';
-import productPropType from '../utils/propTypes';
-import sortItems from '../utils/utils';
+import { ProductType, ariaLables } from '../../utils/variables';
+import productPropType from '../../utils/propTypes';
+import sortItems from '../../utils/utils';
 
 function BurgerConstructor(props) {
   // все,у чего ingredientType 'Bun' -является булкой.

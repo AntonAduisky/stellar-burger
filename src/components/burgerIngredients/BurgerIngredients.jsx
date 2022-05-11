@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import BurgerIngredientsStyles from './BurgerIngredients.module.css';
 import ProductNavigation from './components/productNavigation/ProductNavigation';
 import ProductList from './components/productList/ProductList';
-import { ProductType, ariaLables } from '../utils/variables';
-import sortItems from '../utils/utils';
-import productPropType from '../utils/propTypes';
+import { ProductType, ariaLables } from '../../utils/variables';
+import sortItems from '../../utils/utils';
+import productPropType from '../../utils/propTypes';
 
 function BurgerIngredients(props) {
   // сортировка по типа продукта
