@@ -1,6 +1,6 @@
 import React from 'react';
 import OrderDetailsStyles from './OrderDetails.module.css';
-import doneIcon from './images/done.svg';
+import doneIcon from '../../images/done.svg';
 
 /* Соержимое модалки с деталями заказа, которые устанваливаются кликом при формировании заказа */
 function OrderDetails() {

@@ -9,7 +9,7 @@ const ProductType = {
     name: 'Начинки',
   },
   Sauce: {
-    type: 'sause',
+    type: 'sauce',
     name: 'Соусы',
   },
 };
