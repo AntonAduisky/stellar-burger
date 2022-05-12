@@ -7,7 +7,9 @@
     "types": "npx tsc --noEmit",
     "eject": "react-scripts eject",
     "eslint": "eslint --quiet --fix --ext .js,.ts,.tsx .",
-    "stylelint": "stylelint src/**/*.css --fix"
+    "stylelint": "stylelint src/**/*.css --fix",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
@@ -28,6 +30,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
+    "gh-pages": "^4.0.0",
     "react-scripts": "^5.0.1",
     "stylelint": "^14.8.1",
     "stylelint-config-idiomatic-order": "^8.1.0",

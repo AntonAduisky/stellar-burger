@@ -16,7 +16,7 @@ const ProductType = {
 
 // текстовая метка элемента в случае отсутствия видимого *h*
 const ariaLables = {
-  ingridiens: 'Соберите свой бургер',
+  ingridients: 'Соберите свой бургер',
   constructor: 'Конструктор бургеров',
 };
 

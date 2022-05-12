@@ -6,7 +6,7 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import appHeaderStyles from './AppHeader.module.css';
-
+// шапка
 function AppHeader() {
   return (
     <header className={`${appHeaderStyles.header} pt-4 pb-4 pt-10`}>

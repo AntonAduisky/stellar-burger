@@ -6,12 +6,5 @@
   align-items: center;
   max-width: 272px;
   width: 100vw;
-  text-align: center;
   box-sizing: border-box;
-}
-
-.align {
-  display:flex;
-  gap:8px;
- align-items: center;
 }
