@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -13,7 +15,7 @@ function ProductNavigation({ tabs }) {
       ))}
     </div>
   );
-};
+}
 
 ProductNavigation.propTypes = {
   tabs: PropTypes.array.isRequired,

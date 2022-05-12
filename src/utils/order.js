@@ -1,4 +1,5 @@
 // заказ
+// eslint-disable-next-line import/prefer-default-export
 export const order = [
   {
     _id: '60666c42cc7b410027a1a9b1',
@@ -99,5 +100,3 @@ export const order = [
     __v: 0,
   },
 ];
-
-export default order;

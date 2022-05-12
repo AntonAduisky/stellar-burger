@@ -52,3 +52,5 @@ npm run stylelint
 # проверка типов
 npm run types
 ```
+
+[Наверх](#top)

@@ -9,10 +9,11 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyles from './BurgerConstructor.module.css';
-import { ProductType, ariaLables } from '../utils/variables';
-import productPropType from '../utils/propTypes';
-import sortItems from '../utils/utils';
+import { ProductType, ariaLables } from '../../utils/variables';
+import productPropType from '../../utils/propTypes';
+import sortItems from '../../utils/utils';
 
+/* Конструктор бургера */
 function BurgerConstructor(props) {
   // все,у чего ingredientType 'Bun' -является булкой.
   // Для работы нужен обbект,а не массив обьектов,по-этому используем первый из них
@@ -23,6 +24,7 @@ function BurgerConstructor(props) {
   const filling = [];
 
   // переберем заказ.
+  /* Отрисовка отфильрованной булки */
   props.order.forEach((item) => {
     if (item.type !== ProductType.Bread.type) {
       filling.push(item);
@@ -38,6 +40,7 @@ function BurgerConstructor(props) {
     <section className={`${burgerConstructorStyles.container} pt-25 pl-4`} aria-label={ariaLables.constructor}>
       <ul className={`${burgerConstructorStyles.productItem}`}>
         <li className={`${burgerConstructorStyles.ingredienItem} ml-4`}>
+          {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
           <ConstructorElement
             type="top"
             isLocked
@@ -49,10 +52,11 @@ function BurgerConstructor(props) {
         <li className={`${burgerConstructorStyles.productItem}`}>
           <ul className={`${burgerConstructorStyles.fillingList} mt-4 mb-4`}>
             {filling.map((item) => (
-              <li key={item._id + 1} className={`${burgerConstructorStyles.fillingItem} pb-4 pr-2`}>
+              <li key={item._id} className={`${burgerConstructorStyles.fillingItem} pb-4 pr-2`}>
                 <div className="pr-2">
                   <DragIcon />
                 </div>
+                {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
                 <ConstructorElement
                   text={item.name}
                   price={item.price}
@@ -63,6 +67,7 @@ function BurgerConstructor(props) {
           </ul>
         </li>
         <li className={`${burgerConstructorStyles.productItem} pl-4`}>
+          {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
           <ConstructorElement
             type="bottom"
             isLocked
@@ -72,22 +77,24 @@ function BurgerConstructor(props) {
           />
         </li>
       </ul>
+      {/* Итоговая стоимость бругера с кнопкой заказа */}
       <div className={`${burgerConstructorStyles.order} mt-10`}>
         <span className="text text_type_digits-medium mr-10">
           {price}
           {' '}
           <CurrencyIcon />
         </span>
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={props.onOrderConfirmClick}>
           Оформить заказ
         </Button>
       </div>
     </section>
   );
 }
-
+/* Проверка типов данных, полученных на вход */
 BurgerConstructor.propTypes = {
   order: PropTypes.arrayOf(productPropType.isRequired).isRequired,
+  onOrderConfirmClick: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;
