@@ -8,7 +8,7 @@
 
 ---
 
-#### [Ссылка на проект](https://antonaduisky.github.io/react-burger/)
+#### [Ссылка на проект](https://antonaduisky.github.io/stellar-burger/)
 
 ---
 
