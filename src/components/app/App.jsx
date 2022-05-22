@@ -8,8 +8,12 @@ import { apiConfig, parseResponse } from '../../api/apiConfig';
 import OrderDetails from '../orderDetails/OrderDetails';
 import IngredientDetails from '../ingredientDetails/IngredientDetails';
 import Modal from '../modal/Modal';
+import { BurgerConstructorProvider } from '../../providers/BurgerConstructorProvider';
+import { useBurgerConstructorState } from '../../hooks/useBurgerConstructorState';
+import { BURGER_CONSTRUCTOR_ACTION_TYPE } from '../../providers/constants';
 
 function App() {
+  const { ingredients, dispatch } = useBurgerConstructorState();
   /* Стейт ингредиентов для компонента 'BurgerIngredients' */
   const [data, setData] = useState([]);
   const [isloading, setIsloading] = useState(true);
@@ -27,11 +31,11 @@ function App() {
     fetch(`${apiConfig.url}`)
       .then(parseResponse)
       .then((res) => {
-        console.log(res);
-        setData(res.data);
+        dispatch({ type: BURGER_CONSTRUCTOR_ACTION_TYPE.SET_INGREDIENTS, payload: res.data });
       })
       .catch(() => {
         setHasError(true);
+        console.log(hasError);
       })
       .finally(() => {
         setIsloading(false);
@@ -70,27 +74,29 @@ function App() {
     setIsOrderDetailsOpened(true);
   };
   /* Рендер всех компонентов */
-  return (
-    <div className={AppStyles.app}>
-      <AppHeader />
-      <main className={`${AppStyles.main} mb-10`}>
-        <BurgerIngredients data={data} onIngredientClick={handleIngredientClick} />
-        <BurgerConstructor order={order} onOrderConfirmClick={handleOrderClick} />
-      </main>
 
-      {!isloading && hasError && (
+  return (
+    <BurgerConstructorProvider>
+      <div className={AppStyles.app}>
+        <AppHeader />
+        <main className={`${AppStyles.main} mb-10`}>
+          <BurgerIngredients data={ingredients} onIngredientClick={handleIngredientClick} />
+          <BurgerConstructor order={order} onOrderConfirmClick={handleOrderClick} />
+        </main>
+
+        {!isloading && hasError && (
         <Modal
           heading="Что-то пошло не так..."
           handleKeydown={handleEscKeydown}
           closeModal={handleCloseClick}
         />
-      )}
-      {isOrderDetailsOpened && (
+        )}
+        {isOrderDetailsOpened && (
         <Modal handleKeydown={handleEscKeydown} closeModal={handleCloseClick}>
           <OrderDetails />
         </Modal>
-      )}
-      {isIngredientDetailsOpened && (
+        )}
+        {isIngredientDetailsOpened && (
         <Modal
           heading="Детали ингредиента"
           handleKeydown={handleEscKeydown}
@@ -98,9 +104,10 @@ function App() {
         >
           <IngredientDetails ingredient={ingredient} />
         </Modal>
-      )}
+        )}
 
-    </div>
+      </div>
+    </BurgerConstructorProvider>
   );
 }
 
