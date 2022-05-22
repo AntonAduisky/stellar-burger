@@ -1,13 +1,10 @@
-/* eslint-disable max-len */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import AppStyles from './App.module.css';
 import AppHeader from '../appHeader/AppHeader';
 import { order } from '../../utils/order';
 import BurgerIngredients from '../burgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../burgerConstructor/BurgerConstructor';
-import { apiConfig, parseResponse } from '../../utils/apiConfig';
+import { apiConfig, parseResponse } from '../../api/apiConfig';
 import OrderDetails from '../orderDetails/OrderDetails';
 import IngredientDetails from '../ingredientDetails/IngredientDetails';
 import Modal from '../modal/Modal';
@@ -30,6 +27,7 @@ function App() {
     fetch(`${apiConfig.url}`)
       .then(parseResponse)
       .then((res) => {
+        console.log(res);
         setData(res.data);
       })
       .catch(() => {
@@ -51,11 +49,15 @@ function App() {
   };
   /* Закрытие модального окна с ингредиентом клавишей "Escape" */
   const handleEscKeydown = (e) => {
-    e.key === 'Escape' && closeAllModals();
+    if (e.key === 'Escape') {
+      closeAllModals();
+    }
   };
   /* Закрытие модального окна с ингредиентом клавишей "x" */
   const handleCloseClick = (e) => {
-    e.target && closeAllModals();
+    if (e.target) {
+      closeAllModals();
+    }
   };
   /* Хендлер клика по ингредиенту, открывающий модалку и передающий в нее значения кликнутого ингредиента,
   "item", передан через props в компонент "BurgerIngredients" */

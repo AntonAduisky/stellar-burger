@@ -1,14 +1,11 @@
-/* eslint-disable max-len */
-/* eslint-disable @typescript-eslint/no-extra-semi */
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import PropTypes from 'prop-types';
 import BurgerIngredientsStyles from './BurgerIngredients.module.css';
 import ProductNavigation from './components/productNavigation/ProductNavigation';
 import ProductList from './components/productList/ProductList';
-import { ProductType, ariaLables } from '../../utils/variables';
-import sortItems from '../../utils/utils';
-import productPropType from '../../utils/propTypes';
+import { ProductType, ariaLable } from '../../constants';
+import { sortItems } from '../../utils/sortItems';
+import { productPropType } from '../../constants/propTypes';
 
 function BurgerIngredients({ data, onIngredientClick }) {
   // сортировка по типа продукта
@@ -16,7 +13,7 @@ function BurgerIngredients({ data, onIngredientClick }) {
   const sauce = sortItems(ProductType.Sauce.type, data);
   const main = sortItems(ProductType.Main.type, data);
   return (
-    <section className={`${BurgerIngredientsStyles.products} pt-10`} aria-label={ariaLables.ingridients}>
+    <section className={`${BurgerIngredientsStyles.products} pt-10`} aria-label={ariaLable.ingridients}>
       <h2 className="text text_type_main-large pb-5">Соберите бургер</h2>
       <ProductNavigation tabs={[ProductType.Bread, ProductType.Sauce, ProductType.Main]} />
       <div className={`${BurgerIngredientsStyles.listsWrapper} pt-10`}>
@@ -26,7 +23,7 @@ function BurgerIngredients({ data, onIngredientClick }) {
       </div>
     </section>
   );
-};
+}
 /* Проверка типов данных, полученных на вход */
 BurgerIngredients.propTypes = {
   data: PropTypes.arrayOf(productPropType.isRequired).isRequired,

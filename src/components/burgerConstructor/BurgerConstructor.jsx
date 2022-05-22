@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -9,15 +7,14 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyles from './BurgerConstructor.module.css';
-import { ProductType, ariaLables } from '../../utils/variables';
-import productPropType from '../../utils/propTypes';
-import sortItems from '../../utils/utils';
+import { ProductType, ariaLable, productPropType } from '../../constants';
+import { sortItems } from '../../utils/sortItems';
 
 /* Конструктор бургера */
-function BurgerConstructor(props) {
+function BurgerConstructor({ order, onOrderConfirmClick }) {
   // все,у чего ingredientType 'Bun' -является булкой.
   // Для работы нужен обbект,а не массив обьектов,по-этому используем первый из них
-  const bread = sortItems(ProductType.Bread.type, props.order)[0];
+  const bread = sortItems(ProductType.Bread.type, order)[0];
 
   // filling-это массив в который попадет любое *наполнение* не имеющее типа 'Bun'
   // см. перебор *заказа ниже*
@@ -25,7 +22,7 @@ function BurgerConstructor(props) {
 
   // переберем заказ.
   /* Отрисовка отфильрованной булки */
-  props.order.forEach((item) => {
+  order.forEach((item) => {
     if (item.type !== ProductType.Bread.type) {
       filling.push(item);
     }
@@ -37,7 +34,7 @@ function BurgerConstructor(props) {
   // метод reduce выбран потому, что он перебирает массив и возвращает одно результирующее значение.
   const price = filling.reduce((sum, item) => sum + item.price, bread.price);
   return (
-    <section className={`${burgerConstructorStyles.container} pt-25 pl-4`} aria-label={ariaLables.constructor}>
+    <section className={`${burgerConstructorStyles.container} pt-25 pl-4`} aria-label={ariaLable.constructor}>
       <ul className={`${burgerConstructorStyles.productItem}`}>
         <li className={`${burgerConstructorStyles.ingredienItem} ml-4`}>
           {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
@@ -52,6 +49,7 @@ function BurgerConstructor(props) {
         <li className={`${burgerConstructorStyles.productItem}`}>
           <ul className={`${burgerConstructorStyles.fillingList} mt-4 mb-4`}>
             {filling.map((item) => (
+
               <li key={item._id} className={`${burgerConstructorStyles.fillingItem} pb-4 pr-2`}>
                 <div className="pr-2">
                   <DragIcon />
@@ -84,7 +82,7 @@ function BurgerConstructor(props) {
           {' '}
           <CurrencyIcon />
         </span>
-        <Button type="primary" size="medium" onClick={props.onOrderConfirmClick}>
+        <Button type="primary" size="medium" onClick={onOrderConfirmClick}>
           Оформить заказ
         </Button>
       </div>
