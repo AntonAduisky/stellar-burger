@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BurgerIngredientsStyles from './BurgerIngredients.module.css';
+import styles from './styles.module.css';
 import ProductNavigation from './components/productNavigation/ProductNavigation';
 import ProductList from './components/productList/ProductList';
 import { ProductType, ariaLable } from '../../constants';
@@ -13,10 +13,10 @@ function BurgerIngredients({ data, onIngredientClick }) {
   const sauce = sortItems(ProductType.Sauce.type, data);
   const main = sortItems(ProductType.Main.type, data);
   return (
-    <section className={`${BurgerIngredientsStyles.products} pt-10`} aria-label={ariaLable.ingridients}>
+    <section className={`${styles.products} pt-10`} aria-label={ariaLable.ingridients}>
       <h2 className="text text_type_main-large pb-5">Соберите бургер</h2>
       <ProductNavigation tabs={[ProductType.Bread, ProductType.Sauce, ProductType.Main]} />
-      <div className={`${BurgerIngredientsStyles.listsWrapper} pt-10`}>
+      <div className={`${styles.listsWrapper} pt-10`}>
         <ProductList items={bread} itemsType={ProductType.Bread} onIngredientClick={onIngredientClick} />
         <ProductList items={sauce} itemsType={ProductType.Sauce} onIngredientClick={onIngredientClick} />
         <ProductList items={main} itemsType={ProductType.Main} onIngredientClick={onIngredientClick} />

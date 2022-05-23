@@ -1,13 +1,13 @@
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react';
-import ConstructorStyles from './Constructor.module.css';
+import styles from './styles.module.css';
 import { order } from '../../utils/order';
-import BurgerIngredients from '../burgerIngredients/BurgerIngredients';
-import BurgerConstructor from '../burgerConstructor/BurgerConstructor';
-import { apiConfig, parseResponse } from '../../api/apiConfig';
-import OrderDetails from '../orderDetails/OrderDetails';
-import IngredientDetails from '../ingredientDetails/IngredientDetails';
-import Modal from '../modal/Modal';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import BurgerConstructor from '../burger-constructor/burger-constructor';
+import { apiConfig, parseResponse } from '../../api/api-config';
+import OrderDetails from '../order-details/order-details';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import Modal from '../modal/modal';
 import { useBurgerConstructorState } from '../../hooks/useBurgerConstructorState';
 import { BURGER_CONSTRUCTOR_ACTION_TYPE } from '../../providers';
 
@@ -76,7 +76,7 @@ export const Constructor = () => {
   /* Рендер всех компонентов */
   return (
     <>
-      <main className={`${ConstructorStyles.constructor} mb-10`}>
+      <main className={`${styles.constructor} mb-10`}>
         <BurgerIngredients data={ingredients} onIngredientClick={handleIngredientClick} />
         <BurgerConstructor order={order} onOrderConfirmClick={handleOrderClick} />
       </main>

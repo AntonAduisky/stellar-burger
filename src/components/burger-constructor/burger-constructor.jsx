@@ -6,7 +6,7 @@ import {
   CurrencyIcon,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import burgerConstructorStyles from './BurgerConstructor.module.css';
+import styles from './styles.module.css';
 import { ProductType, ariaLable, productPropType } from '../../constants';
 import { sortItems } from '../../utils/sortItems';
 
@@ -34,9 +34,9 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
   // метод reduce выбран потому, что он перебирает массив и возвращает одно результирующее значение.
   const price = filling.reduce((sum, item) => sum + item.price, bread.price);
   return (
-    <section className={`${burgerConstructorStyles.container} pt-25 pl-4`} aria-label={ariaLable.constructor}>
-      <ul className={`${burgerConstructorStyles.productItem}`}>
-        <li className={`${burgerConstructorStyles.ingredienItem} ml-4`}>
+    <section className={`${styles.container} pt-25 pl-4`} aria-label={ariaLable.constructor}>
+      <ul className={`${styles.productItem}`}>
+        <li className={`${styles.ingredienItem} ml-4`}>
           {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
           <ConstructorElement
             type="top"
@@ -46,11 +46,11 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
             thumbnail={bread.image_mobile}
           />
         </li>
-        <li className={`${burgerConstructorStyles.productItem}`}>
-          <ul className={`${burgerConstructorStyles.fillingList} mt-4 mb-4`}>
+        <li className={`${styles.productItem}`}>
+          <ul className={`${styles.fillingList} mt-4 mb-4`}>
             {filling.map((item) => (
 
-              <li key={item._id} className={`${burgerConstructorStyles.fillingItem} pb-4 pr-2`}>
+              <li key={item._id} className={`${styles.fillingItem} pb-4 pr-2`}>
                 <div className="pr-2">
                   <DragIcon />
                 </div>
@@ -64,7 +64,7 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
             ))}
           </ul>
         </li>
-        <li className={`${burgerConstructorStyles.productItem} pl-4`}>
+        <li className={`${styles.productItem} pl-4`}>
           {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
           <ConstructorElement
             type="bottom"
@@ -76,7 +76,7 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
         </li>
       </ul>
       {/* Итоговая стоимость бругера с кнопкой заказа */}
-      <div className={`${burgerConstructorStyles.order} mt-10`}>
+      <div className={`${styles.order} mt-10`}>
         <span className="text text_type_digits-medium mr-10">
           {price}
           {' '}

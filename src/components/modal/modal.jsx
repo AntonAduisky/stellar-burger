@@ -4,8 +4,8 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import ModalStyles from './Modal.module.css';
-import ModalOverlay from '../modalOverlay/ModalOverlay';
+import styles from './styles.module.css';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 
 const rootModalContainer = document.getElementById('modals');
 
@@ -20,16 +20,16 @@ const Modal = ({
     return () => {
       document.removeEventListener('keydown', handleKeydown);
     };
-  }, []);
+  }, [handleKeydown]);
 
   /* Рендер вне корневого элемента */
   return ReactDOM.createPortal(
-    <section className={ModalStyles.container}>
-      <div className={`${ModalStyles.wrapper}`}>
+    <section className={styles.container}>
+      <div className={`${styles.wrapper}`}>
         {heading && (
-          <h2 className={`${ModalStyles.heading} text text_type_main-large`}>{heading}</h2>
+          <h2 className={`${styles.heading} text text_type_main-large`}>{heading}</h2>
         )}
-        <button className={ModalStyles.closeButton} onClick={closeModal}>
+        <button className={styles.closeButton} onClick={closeModal}>
           <CloseIcon type="primary" />
         </button>
 
