@@ -8,11 +8,11 @@ import { apiConfig, parseResponse } from '../../api/api-config';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
-import { useBurgerConstructorState } from '../../hooks/useBurgerConstructorState';
+import { useConstructorState } from '../../hooks/useConstructorState';
 import { BURGER_CONSTRUCTOR_ACTION_TYPE } from '../../providers';
 
 export const Constructor = () => {
-  const { ingredients, dispatch } = useBurgerConstructorState();
+  const { ingredients, dispatch } = useConstructorState();
   const [isloading, setIsloading] = useState(true);
   const [hasError, setHasError] = useState(false);
   /* Булевый стейт для изменения состояния (открыто/закрыто) для модального окна с деталями сделанного заказа */

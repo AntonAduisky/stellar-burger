@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import { INITIAL_STATE, INITIAL_CONTEXT } from './constants';
 import { reducer } from './reducer';
 
-export const BurgerConstructorContext = createContext(INITIAL_CONTEXT);
+export const ConstructorContext = createContext(INITIAL_CONTEXT);
 
-export function BurgerConstructorProvider({ children }) {
+export function ConstructorProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
   const providerValue = useMemo(() => ({ state, dispatch }), [state]);
 
   return (
-    <BurgerConstructorContext.Provider value={providerValue}>
+    <ConstructorContext.Provider value={providerValue}>
       {children}
-    </BurgerConstructorContext.Provider>
+    </ConstructorContext.Provider>
   );
 }
 
-BurgerConstructorProvider.propTypes = {
+ConstructorProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
