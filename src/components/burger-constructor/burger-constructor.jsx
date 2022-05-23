@@ -35,9 +35,9 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
   const price = FILLING.reduce((sum, item) => sum + item.price, BREAD.price);
   return (
     <section className={`${styles.container} pt-25 pl-4`} aria-label={ariaLable.constructor}>
-      <ul className={`${styles.productItem}`}>
-        <li className={`${styles.ingredienItem} ml-4`}>
-          {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
+      <ul className={`${styles.ingredientList} pr-2`}>
+
+        <li className={`${styles.ingredientItem} ml-4`}>
           <ConstructorElement
             type="top"
             isLocked
@@ -46,15 +46,14 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
             thumbnail={BREAD.image_mobile}
           />
         </li>
-        <li className={`${styles.productItem}`}>
-          <ul className={`${styles.FILLINGList} mt-4 mb-4`}>
-            {FILLING.map((item) => (
 
-              <li key={item._id} className={`${styles.FILLINGItem} pb-4 pr-2`}>
+        <li className={`${styles.ingredientItem}`}>
+          <ul className={`${styles.fillingList} mt-4 mb-4`}>
+            {FILLING.map((item) => (
+              <li key={item._id} className={`${styles.fillingItem} mb-4 mr-2`}>
                 <div className="pr-2">
                   <DragIcon />
                 </div>
-                {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
                 <ConstructorElement
                   text={item.name}
                   price={item.price}
@@ -63,9 +62,10 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
               </li>
             ))}
           </ul>
+
         </li>
-        <li className={`${styles.productItem} pl-4`}>
-          {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
+
+        <li className={`${styles.ingredientItem} pl-4`}>
           <ConstructorElement
             type="bottom"
             isLocked
@@ -74,6 +74,7 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
             thumbnail={BREAD.image_mobile}
           />
         </li>
+
       </ul>
       {/* Итоговая стоимость бругера с кнопкой заказа */}
       <div className={`${styles.order} mt-10`}>
@@ -86,6 +87,7 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
           Оформить заказ
         </Button>
       </div>
+
     </section>
   );
 }

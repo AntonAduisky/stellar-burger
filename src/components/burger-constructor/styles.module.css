@@ -1,8 +1,10 @@
 .container {
   display: flex;
   flex-direction: column;
-  max-height: 921px;
   box-sizing: border-box;
+  max-height: 921px;
+  max-width: 600px;
+  width: 100vw;
 }
 
 .list {
@@ -10,12 +12,13 @@
   list-style: none;
 }
 
-.productItem {
+.ingredientList {
   composes: list;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0;
+  flex: 1;
 }
 
 .fillingList {
@@ -26,10 +29,10 @@
 
 .fillingItem {
   display: flex;
-  align-items: center;
   max-width: 568px;
-  width: 100vw;
+  width: 100%;
   box-sizing: border-box;
+  align-items: center;
 }
 
 .fillingItem:last-of-type {
