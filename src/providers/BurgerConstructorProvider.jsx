@@ -8,7 +8,7 @@ export const BurgerConstructorContext = createContext(INITIAL_CONTEXT);
 export function BurgerConstructorProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-  const providerValue = useMemo(() => ({ state, dispatch }), []);
+  const providerValue = useMemo(() => ({ state, dispatch }), [state]);
 
   return (
     <BurgerConstructorContext.Provider value={providerValue}>
@@ -18,5 +18,8 @@ export function BurgerConstructorProvider({ children }) {
 }
 
 BurgerConstructorProvider.propTypes = {
-  children: PropTypes.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };

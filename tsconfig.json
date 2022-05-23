@@ -28,7 +28,7 @@
     "**/*/.js",
     "**/*/.jsx",
     "**/*/.css",
-    "src/index.jsx"
+    "src/index.tsx"
   ],
   "exclude": [
     "docs",

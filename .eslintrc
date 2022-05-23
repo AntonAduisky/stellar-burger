@@ -20,10 +20,13 @@
         "react-hooks"
     ],
     "extends": [
-        "airbnb"
+        "airbnb",
+        "plugin:react-hooks/recommended"
         // "airbnb-typescript"
     ],
     "rules": {
+        "react/function-component-definition": "off",
+        "linebreak-style": "off",
         "import/prefer-default-export": "off",
         "max-len": [
             "warn",
@@ -34,6 +37,7 @@
                 "ignoreTemplateLiterals": true
             }
         ],
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "quotes": "off"
     }
 }

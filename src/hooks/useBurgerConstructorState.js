@@ -5,7 +5,7 @@ export const useBurgerConstructorState = () => {
   const context = useContext(BurgerConstructorContext);
 
   if (!context) {
-    throw new Error('error');
+    throw new Error('context error');
   }
 
   const { state, dispatch } = context;

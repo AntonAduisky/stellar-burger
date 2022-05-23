@@ -1,25 +1,20 @@
-/* eslint-disable eol-last */
-/* eslint-disable import/order */
-/* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/jsx-curly-brace-presence */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable react/jsx-indent */
-/* eslint-disable react/jsx-one-expression-per-line */
 import React from "react";
 import PropTypes from 'prop-types';
-import ProductCardStyles from './ProductCard.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import ProductCardStyles from './ProductCard.module.css';
 
-function ProductCard(props) {
+function ProductCard({ name, image, price }) {
   return (
     <div className={`${ProductCardStyles.card} pl-4 pr-4`}>
       <Counter count={1} size="default" />
-      <img className="" src={props.image} alt={props.name} />
-      <p className={`text text_type_digits-default mt-1 mb-1`}>
-        {props.price} <CurrencyIcon />
+      <img className="" src={image} alt={name} />
+      <p className="text text_type_digits-default mt-1 mb-1">
+        {price}
+        {' '}
+        <CurrencyIcon />
       </p>
-      <h3 className={`text text_type_main-default`}>{props.name}</h3>
+      <h3 className="text text_type_main-default">{name}</h3>
     </div>
   );
 }
