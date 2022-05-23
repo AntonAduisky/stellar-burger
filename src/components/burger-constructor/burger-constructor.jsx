@@ -14,17 +14,17 @@ import { sortItems } from '../../utils/sortItems';
 function BurgerConstructor({ order, onOrderConfirmClick }) {
   // все,у чего ingredientType 'Bun' -является булкой.
   // Для работы нужен обbект,а не массив обьектов,по-этому используем первый из них
-  const bread = sortItems(ProductType.Bread.type, order)[0];
+  const BREAD = sortItems(ProductType.Bread.type, order)[0];
 
-  // filling-это массив в который попадет любое *наполнение* не имеющее типа 'Bun'
+  // FILLING-это массив в который попадет любое *наполнение* не имеющее типа 'Bun'
   // см. перебор *заказа ниже*
-  const filling = [];
+  const FILLING = [];
 
   // переберем заказ.
   /* Отрисовка отфильрованной булки */
   order.forEach((item) => {
     if (item.type !== ProductType.Bread.type) {
-      filling.push(item);
+      FILLING.push(item);
     }
   });
 
@@ -32,7 +32,7 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
   // второй - то что складываем,
   // а третий - первоначальное значение
   // метод reduce выбран потому, что он перебирает массив и возвращает одно результирующее значение.
-  const price = filling.reduce((sum, item) => sum + item.price, bread.price);
+  const price = FILLING.reduce((sum, item) => sum + item.price, BREAD.price);
   return (
     <section className={`${styles.container} pt-25 pl-4`} aria-label={ariaLable.constructor}>
       <ul className={`${styles.productItem}`}>
@@ -41,16 +41,16 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
           <ConstructorElement
             type="top"
             isLocked
-            text={`${bread.name} (верх)`}
-            price={bread.price}
-            thumbnail={bread.image_mobile}
+            text={`${BREAD.name} (верх)`}
+            price={BREAD.price}
+            thumbnail={BREAD.image_mobile}
           />
         </li>
         <li className={`${styles.productItem}`}>
-          <ul className={`${styles.fillingList} mt-4 mb-4`}>
-            {filling.map((item) => (
+          <ul className={`${styles.FILLINGList} mt-4 mb-4`}>
+            {FILLING.map((item) => (
 
-              <li key={item._id} className={`${styles.fillingItem} pb-4 pr-2`}>
+              <li key={item._id} className={`${styles.FILLINGItem} pb-4 pr-2`}>
                 <div className="pr-2">
                   <DragIcon />
                 </div>
@@ -69,9 +69,9 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
           <ConstructorElement
             type="bottom"
             isLocked
-            text={`${bread.name} (низ)`}
-            price={bread.price}
-            thumbnail={bread.image_mobile}
+            text={`${BREAD.name} (низ)`}
+            price={BREAD.price}
+            thumbnail={BREAD.image_mobile}
           />
         </li>
       </ul>

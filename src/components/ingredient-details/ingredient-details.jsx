@@ -2,7 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import styles from './styles.module.css';
 import { productPropType } from '../../constants/propTypes';
-import NutritionValue from './components/NutritionValue';
+import NutritionValue from './components/nutrition-value';
 
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
 function IngredientDetails({ ingredient }) {
