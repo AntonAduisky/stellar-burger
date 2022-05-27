@@ -24,7 +24,9 @@ export const Constructor = () => {
 
   /* Запрос на сервер и монитрование полученного списка ингредиентов в компонент "BurgerIngredients" */
   function getData() {
-    fetch(`${apiConfig.url}`)
+    fetch(`${apiConfig.baseUrl}/ingredients`, {
+      headers: apiConfig.headers,
+    })
       .then(parseResponse)
       .then((res) => {
         dispatch({
