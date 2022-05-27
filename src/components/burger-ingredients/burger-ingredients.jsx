@@ -5,13 +5,14 @@ import ProductNavigation from './components/product-navigation/product-navigatio
 import ProductList from './components/product-list/product-list';
 import { ProductType, ariaLable } from '../../constants';
 import { sortItems } from '../../utils/sortItems';
-import { productPropType } from '../../constants/propTypes';
+import { useConstructorState } from '../../hooks/useConstructorState';
 
-function BurgerIngredients({ data, onIngredientClick }) {
+function BurgerIngredients({ onIngredientClick }) {
+  const { ingredients } = useConstructorState();
   // сортировка по типа продукта
-  const BREAD = sortItems(ProductType.Bread.type, data);
-  const SAUCE = sortItems(ProductType.Sauce.type, data);
-  const MAIN = sortItems(ProductType.Main.type, data);
+  const BREAD = sortItems(ProductType.Bread.type, ingredients);
+  const SAUCE = sortItems(ProductType.Sauce.type, ingredients);
+  const MAIN = sortItems(ProductType.Main.type, ingredients);
   return (
     <section className={`${styles.products} pt-10`} aria-label={ariaLable.ingridients}>
       <h2 className="text text_type_MAIN-large pb-5">Соберите бургер</h2>
@@ -26,7 +27,7 @@ function BurgerIngredients({ data, onIngredientClick }) {
 }
 /* Проверка типов данных, полученных на вход */
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(productPropType.isRequired).isRequired,
+  // data: PropTypes.arrayOf(productPropType.isRequired).isRequired,
   onIngredientClick: PropTypes.func.isRequired,
 };
 

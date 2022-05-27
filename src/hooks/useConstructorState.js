@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ConstructorContext } from '../providers/constructorProvider';
+import { ConstructorContext } from '../providers';
 
 export const useConstructorState = () => {
   const context = useContext(ConstructorContext);
@@ -9,6 +9,5 @@ export const useConstructorState = () => {
   }
 
   const { state, dispatch } = context;
-
   return { ...state, dispatch };
 };

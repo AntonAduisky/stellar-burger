@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react';
 import styles from './styles.module.css';
-import { order } from '../../utils/order';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import { apiConfig, parseResponse } from '../../api/api-config';
@@ -21,9 +20,10 @@ export const Constructor = () => {
   const [isIngredientDetailsOpened, setIsIngredientDetailsOpened] = useState(false);
   /* Стейт для передачи в модальное окно выбранного ингредиента */
   const [ingredient, setIngredient] = useState({});
+  const [orderNumber, setOrderNumber] = useState(null);
 
   /* Запрос на сервер и монитрование полученного списка ингредиентов в компонент "BurgerIngredients" */
-  function getData() {
+  function getIngredients() {
     fetch(`${apiConfig.baseUrl}/ingredients`, {
       headers: apiConfig.headers,
     })
@@ -41,10 +41,31 @@ export const Constructor = () => {
         setIsloading(false);
       });
   }
+  // При нажатии на кнопку «Оформить заказ» отправляйте запрос к API
 
-  /* Монитрование пустого массива для ингредиентов, куда в дальнейшем будут вмонитрованы ингредиенты функцией "getData" */
+  const ingredientId = ingredients.map((i) => i._id);
+
+  const postOrder = () => {
+    fetch(`${apiConfig.baseUrl}/orders`, {
+      method: 'POST',
+      headers: apiConfig.headers,
+      body: JSON.stringify({
+        ingredients: ingredientId,
+      }),
+    })
+      .then(parseResponse)
+      .then((res) => setOrderNumber(res.order.number))
+      .catch(() => {
+        setHasError(true);
+      })
+      .finally(() => {
+        setIsloading(false);
+      });
+  };
+
+  /* Монитрование пустого массива для ингредиентов, куда в дальнейшем будут вмонитрованы ингредиенты функцией "getIngredients" */
   useEffect(() => {
-    getData();
+    getIngredients();
   }, []);
 
   /* Закрытие модального окна */
@@ -73,16 +94,17 @@ export const Constructor = () => {
   };
   /* Хендлер октрытия модального окна с деталями заказа */
   const handleOrderClick = () => {
+    setOrderNumber(null);
     setIsOrderDetailsOpened(true);
+    postOrder();
   };
   /* Рендер всех компонентов */
   return (
     <>
       <main className={`${styles.constructor} mb-10`}>
-        <BurgerIngredients data={ingredients} onIngredientClick={handleIngredientClick} />
-        <BurgerConstructor order={order} onOrderConfirmClick={handleOrderClick} />
+        <BurgerIngredients onIngredientClick={handleIngredientClick} />
+        <BurgerConstructor onOrderConfirmClick={handleOrderClick} />
       </main>
-
       {!isloading && hasError && (
         <Modal
           heading="Что-то пошло не так..."
@@ -92,7 +114,7 @@ export const Constructor = () => {
       )}
       {isOrderDetailsOpened && (
         <Modal handleKeydown={handleEscKeydown} closeModal={handleCloseClick}>
-          <OrderDetails />
+          <OrderDetails orderNum={orderNumber} />
         </Modal>
       )}
       {isIngredientDetailsOpened && (
@@ -104,7 +126,6 @@ export const Constructor = () => {
           <IngredientDetails ingredient={ingredient} />
         </Modal>
       )}
-
     </>
   );
 };

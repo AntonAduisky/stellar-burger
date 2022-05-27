@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   ConstructorElement,
@@ -7,37 +7,36 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles.module.css';
-import { ProductType, ariaLable, productPropType } from '../../constants';
-import { sortItems } from '../../utils/sortItems';
+import { ariaLable } from '../../constants';
+import { useConstructorState } from '../../hooks/useConstructorState';
 
 /* Конструктор бургера */
-function BurgerConstructor({ order, onOrderConfirmClick }) {
-  // все,у чего ingredientType 'Bun' -является булкой.
-  // Для работы нужен обbект,а не массив обьектов,по-этому используем первый из них
-  const BREAD = sortItems(ProductType.Bread.type, order)[0];
+function BurgerConstructor({ onOrderConfirmClick }) {
+  const { ingredients } = useConstructorState();
 
-  // FILLING-это массив в который попадет любое *наполнение* не имеющее типа 'Bun'
-  // см. перебор *заказа ниже*
-  const FILLING = [];
+  const BREAD = useMemo(
+    () => ingredients.find((el) => el.name === "Краторная булка N-200i"),
+    [ingredients],
+  );
 
-  // переберем заказ.
-  /* Отрисовка отфильрованной булки */
-  order.forEach((item) => {
-    if (item.type !== ProductType.Bread.type) {
-      FILLING.push(item);
-    }
-  });
+  const FILLING = useMemo(
+    () => ingredients.filter((el) => el.type !== 'bun'),
+    [ingredients],
+  );
 
-  // Первый аргумент - аккумулятор, в который все складывается,
-  // второй - то что складываем,
-  // а третий - первоначальное значение
-  // метод reduce выбран потому, что он перебирает массив и возвращает одно результирующее значение.
-  const price = FILLING.reduce((sum, item) => sum + item.price, BREAD.price);
+  // Функция для использование подсчёта стоимости
+  const price = useMemo(() => (
+    (ingredients.bun ? ingredients.bun.price * 2 : 0)
+        + ingredients.reduce((s, v) => s + v.price, 0)
+  ), [ingredients]);
+
   return (
     <section className={`${styles.container} pt-25 pl-4`} aria-label={ariaLable.constructor}>
       <ul className={`${styles.ingredientList} pr-2`}>
 
         <li className={`${styles.ingredientItem} ml-4`}>
+          {BREAD
+          && (
           <ConstructorElement
             type="top"
             isLocked
@@ -45,6 +44,7 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
             price={BREAD.price}
             thumbnail={BREAD.image_mobile}
           />
+          )}
         </li>
 
         <li className={`${styles.ingredientItem}`}>
@@ -66,6 +66,8 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
         </li>
 
         <li className={`${styles.ingredientItem} pl-4`}>
+          {BREAD
+          && (
           <ConstructorElement
             type="bottom"
             isLocked
@@ -73,6 +75,7 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
             price={BREAD.price}
             thumbnail={BREAD.image_mobile}
           />
+          )}
         </li>
 
       </ul>
@@ -93,7 +96,7 @@ function BurgerConstructor({ order, onOrderConfirmClick }) {
 }
 /* Проверка типов данных, полученных на вход */
 BurgerConstructor.propTypes = {
-  order: PropTypes.arrayOf(productPropType.isRequired).isRequired,
+  // order: PropTypes.arrayOf(productPropType.isRequired).isRequired,
   onOrderConfirmClick: PropTypes.func.isRequired,
 };
 
