@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypese from 'prop-types';
 import styles from './styles.module.css';
 import doneIcon from '../../images/done.svg';
 
@@ -18,8 +18,8 @@ function OrderDetails({ orderNum }) {
   );
 }
 
-OrderDetails.propTypes = {
-  orderNum: PropTypes.number.isRequired,
+OrderDetails.propTypese = {
+  orderNum: PropTypese.number.isRequired,
 };
 
 export default OrderDetails;

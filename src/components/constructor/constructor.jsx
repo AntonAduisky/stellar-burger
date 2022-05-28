@@ -62,7 +62,6 @@ export const Constructor = () => {
         setIsloading(false);
       });
   };
-
   /* Монитрование пустого массива для ингредиентов, куда в дальнейшем будут вмонитрованы ингредиенты функцией "getIngredients" */
   useEffect(() => {
     getIngredients();
@@ -73,18 +72,6 @@ export const Constructor = () => {
     setIsIngredientDetailsOpened(false);
     setIsOrderDetailsOpened(false);
     setHasError(false);
-  };
-  /* Закрытие модального окна с ингредиентом клавишей "Escape" */
-  const handleEscKeydown = (e) => {
-    if (e.key === 'Escape') {
-      closeAllModals();
-    }
-  };
-  /* Закрытие модального окна с ингредиентом клавишей "x" */
-  const handleCloseClick = (e) => {
-    if (e.target) {
-      closeAllModals();
-    }
   };
   /* Хендлер клика по ингредиенту, открывающий модалку и передающий в нее значения кликнутого ингредиента,
   "item", передан через props в компонент "BurgerIngredients" */
@@ -108,20 +95,18 @@ export const Constructor = () => {
       {!isloading && hasError && (
         <Modal
           heading="Что-то пошло не так..."
-          handleKeydown={handleEscKeydown}
           closeModal={handleCloseClick}
         />
       )}
       {isOrderDetailsOpened && (
-        <Modal handleKeydown={handleEscKeydown} closeModal={handleCloseClick}>
+        <Modal closeModal={closeAllModals}>
           <OrderDetails orderNum={orderNumber} />
         </Modal>
       )}
       {isIngredientDetailsOpened && (
         <Modal
           heading="Детали ингредиента"
-          handleKeydown={handleEscKeydown}
-          closeModal={handleCloseClick}
+          closeModal={closeAllModals}
         >
           <IngredientDetails ingredient={ingredient} />
         </Modal>

@@ -18,7 +18,6 @@ export const productPropType = PropTypes.shape({
   image_mobile: PropTypes.string.isRequired,
   image_large: PropTypes.string.isRequired,
   __v: PropTypes.number.isRequired,
-  children: PropTypes.objectOf(PropTypes.node),
 });
 // Можно связать любой из вышеперечисленых валидаторов с 'isRequired', чтобы убедиться,
 // что предупреждение показывается, если значение свойства не предоставлено

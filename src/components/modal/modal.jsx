@@ -11,23 +11,27 @@ const rootModalContainer = document.getElementById('modals');
 
 /* Передача props для модального окна, используются в компоненте App */
 const Modal = ({
-  closeModal, handleKeydown, heading, children,
+  closeModal, heading, children,
 }) => {
-  /* Монитрование случателя нажатия клваиши */
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeydown);
+  const handleEscKeydown = (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  };
 
+  useEffect(() => {
+    document.addEventListener('keydown', handleEscKeydown);
     return () => {
-      document.removeEventListener('keydown', handleKeydown);
+      document.removeEventListener('keydown', handleEscKeydown);
     };
-  }, [handleKeydown]);
+  });
 
   /* Рендер вне корневого элемента */
   return ReactDOM.createPortal(
     <section className={styles.container}>
       <div className={`${styles.wrapper}`}>
         {heading && (
-          <h2 className={`${styles.heading} text text_type_main-large`}>{heading}</h2>
+        <h2 className={`${styles.heading} text text_type_main-large`}>{heading}</h2>
         )}
         <button className={styles.closeButton} onClick={closeModal}>
           <CloseIcon type="primary" />
@@ -43,7 +47,6 @@ const Modal = ({
 
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  handleKeydown: PropTypes.func.isRequired,
   heading: PropTypes.string,
   children: PropTypes.element.isRequired,
 };
