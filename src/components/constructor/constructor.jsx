@@ -44,7 +44,6 @@ export const Constructor = () => {
   // При нажатии на кнопку «Оформить заказ» отправляйте запрос к API
 
   const ingredientId = ingredients.map((i) => i._id);
-
   const postOrder = () => {
     fetch(`${apiConfig.baseUrl}/orders`, {
       method: 'POST',
