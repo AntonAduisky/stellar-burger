@@ -1,6 +1,7 @@
 {
   "name": "react-burger",
   "version": "0.1.0",
+  "homepage": "https://antonaduisky.github.io/stellar-burger/",
   "scripts": {
     "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
     "build": "react-scripts build",
@@ -9,7 +10,7 @@
     "eslint": "eslint --quiet --fix --ext .js,.ts,.tsx .",
     "stylelint": "stylelint src/**/*.css --fix",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
