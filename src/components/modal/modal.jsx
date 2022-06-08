@@ -36,7 +36,6 @@ const Modal = ({
         <button className={styles.closeButton} onClick={closeModal}>
           <CloseIcon type="primary" />
         </button>
-
         {children}
       </div>
       <ModalOverlay handleClick={closeModal} />

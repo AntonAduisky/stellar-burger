@@ -15,5 +15,6 @@
 }
 
 .item {
+  text-align: center;
   cursor: pointer;
 }
