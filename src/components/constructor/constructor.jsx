@@ -1,11 +1,14 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useCallback } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.css';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import Preloader from '../preloader/preloader';
 import Modal from '../modal/modal';
 import {
   getIngredients, resetIngredientsError, resetOrderError, closeOrderModal, closeIngredientModal,
@@ -41,8 +44,10 @@ export const Constructor = () => {
     <>
       {!ingredientsRequestFailed && !ingredientsRequest && (
       <main className={`${styles.constructor} mb-10`}>
-        <BurgerIngredients />
-        <BurgerConstructor />
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </DndProvider>
       </main>
       )}
 
@@ -54,6 +59,7 @@ export const Constructor = () => {
       )}
       {orderNumber && (
         <Modal closeModal={closeOrderDetailsModal}>
+            {orderRequest && !orderFailed && <Preloader />}
           {!orderRequest && !orderRequestFailed && <OrderDetails />}
         </Modal>
       )}

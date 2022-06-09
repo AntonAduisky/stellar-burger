@@ -12,3 +12,7 @@
 .card:hover {
   transform: scale(1.05);
 }
+
+.cardIsDrag {
+ background: radial-gradient(#642ca3, #3b21ad);;
+}

@@ -1,9 +1,12 @@
-import { ADD, DELETE, RESET } from '../actions/constructor';
+import update from 'immutability-helper';
+import {
+  ADD, DELETE, RESET, CHANGE_ORDER,
+} from '../actions/constructor';
 
 const initialState = {
   bun: null,
   filling: [],
-  orderId: [],
+  ingredientIds: [],
   totalPrice: 0,
 };
 
@@ -16,7 +19,7 @@ export const constructorReducer = (state = initialState, action) => {
           return {
             ...state,
             bun: action.item,
-            orderId: [...state.orderId]
+            ingredientIds: [...state.ingredientIds]
               .filter((id) => id !== state.bun._id)
               .concat(action.item._id),
             totalPrice: state.totalPrice - state.bun.price * 2 + action.item.price * 2,
@@ -25,14 +28,14 @@ export const constructorReducer = (state = initialState, action) => {
         return {
           ...state,
           bun: action.item,
-          orderId: [...state.orderId, action.item._id],
+          ingredientIds: [...state.ingredientIds, action.item._id],
           totalPrice: state.totalPrice + action.item.price * 2,
         };
       }
       return {
         ...state,
         filling: [...state.filling, action.item],
-        orderId: [...state.orderId, action.item._id],
+        ingredientIds: [...state.ingredientIds, action.item._id],
         totalPrice: state.totalPrice + action.item.price,
       };
 
@@ -40,12 +43,23 @@ export const constructorReducer = (state = initialState, action) => {
       return {
         ...state,
         filling: [...state.filling].filter((item) => item.uId !== action.item.uId),
-        orderId: [...state.orderId].filter((id) => id !== action.item._id),
+        ingredientIds: [...state.ingredientIds].filter((id) => id !== action.item._id),
         totalPrice: state.totalPrice - action.item.price,
       };
 
     case RESET:
       return initialState;
+
+    case CHANGE_ORDER:
+      return {
+        ...state,
+        filling: update(state.filling, {
+          $splice: [
+            [action.dragIndex, 1],
+            [action.hoverIndex, 0, state.filling[action.dragIndex]],
+          ],
+        }),
+      };
 
     default:
       return state;

@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const ADD = 'ADD';
 export const DELETE = 'DELETE';
 export const RESET = 'RESET';
+export const CHANGE_ORDER = 'CHANGE_ORDER';
 
 // dnd
 export function addItem(item) {
@@ -25,5 +26,13 @@ export function removeItem(item) {
 export function resetConstructor() {
   return {
     type: RESET,
+  };
+}
+
+export function changeOrder(dragIndex, hoverIndex) {
+  return {
+    type: CHANGE_ORDER,
+    dragIndex,
+    hoverIndex,
   };
 }

@@ -1,0 +1,25 @@
+.allProducts {
+  width: 88%;
+  max-height: 500px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.allProducts:hover {
+  border: solid 2px #c9c2ec;
+  border-radius: 50px;
+}
+
+.allProducts:hover::after {
+  position: absolute;
+  content: 'Перетащите ингредиенты';
+}
+
+.allProductsHover {
+  composes: allProducts;
+  border: solid 2px #c9c2ec;
+  border-radius: 50px;
+}

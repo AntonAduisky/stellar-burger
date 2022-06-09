@@ -15,6 +15,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
+    "immutability-helper": "^3.1.1",
     "prop-types": "^15.8.1",
     "react": "^16.8.6",
     "react-dnd": "^16.0.1",
