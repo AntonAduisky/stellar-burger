@@ -40,7 +40,7 @@ function BurgerIngredients() {
 
   return (
     <section className={`${styles.products} pt-10`} aria-label={ariaLable.ingridients}>
-      <h2 className="text text_type_MAIN-large pb-5">Соберите бургер</h2>
+      <h2 className="text text_type_main-large mb-5 pb-5">Соберите бургер</h2>
       <ProductNavigation
         tabs={[ProductType.Bun, ProductType.Sauce, ProductType.Main]}
         current={currentTab}
