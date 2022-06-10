@@ -14,15 +14,18 @@
 
 #### Описание
 
-- Cтатичный landing-page космической бургерной.
+- Одностраничный веб-сайт космической бургерной.
 
 ___
 
 #### Используемые технологии
 
 - html5 / css3 (GridLayout & Flexbox) и [React Developer Burger UI Components](https://yandex-praktikum.github.io/react-developer-burger-ui-components/docs/)
+- [React DnD](https://react-dnd.github.io/react-dnd/about)
+- [immutability-helper](https://www.npmjs.com/package/immutability-helper?activeTab=dependents)
 - JavaScript
 - React
+- Redux
 - сборщик Webpack (втч : минификация HTML,CSS,JS)
 - код поделен на модули
 
