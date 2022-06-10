@@ -12,9 +12,9 @@ function BurgerIngredients() {
 
   const [currentTab, setCurrentTab] = useState('bun');
 
-  const [bunsRef, inViewBuns] = useInView({ threshold: 1 });
-  const [saucesRef, inViewSauces] = useInView({ threshold: 0.5 });
-  const [mainsRef, inViewMains] = useInView({ threshold: 0.5 });
+  const [bunsRef, inViewBuns] = useInView({ threshold: 0.6 });
+  const [saucesRef, inViewSauces] = useInView({ threshold: 0.1 });
+  const [mainsRef, inViewMains] = useInView({ threshold: 0.3 });
 
   useEffect(() => {
     if (inViewBuns) {
