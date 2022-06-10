@@ -11,7 +11,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Preloader from '../preloader/preloader';
 import Modal from '../modal/modal';
 import {
-  getIngredients, resetIngredientsError, resetOrderError, closeOrderModal, closeIngredientModal,
+  getIngredients, resetIngredientsError, resetOrderError, closeOrderModal, closeIngredientModal, resetConstructor,
 } from '../../providers/actions/export';
 
 export const Constructor = () => {
