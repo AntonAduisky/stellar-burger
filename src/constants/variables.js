@@ -1,6 +1,6 @@
 // все возможные типы ингридиентов
 export const ProductType = {
-  Bread: {
+  Bun: {
     type: 'bun',
     name: 'Булки',
   },

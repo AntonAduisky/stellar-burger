@@ -4,12 +4,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function ProductNavigation({ tabs }) {
-  const [current, setCurrent] = React.useState(tabs[0]);
+function ProductNavigation({ tabs, current, handleClick }) {
   return (
     <div style={{ display: 'flex' }}>
       {tabs.map((tab, index) => (
-        <Tab key={index} value={tab.type} active={current === tab.type} onClick={setCurrent}>
+        <Tab
+          key={index}
+          value={tab.type}
+          active={current === tab.type}
+          onClick={() => handleClick(tab.type)}
+        >
           {tab.name}
         </Tab>
       ))}
@@ -19,6 +23,8 @@ function ProductNavigation({ tabs }) {
 
 ProductNavigation.propTypes = {
   tabs: PropTypes.array.isRequired,
+  current: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default ProductNavigation;

@@ -1,0 +1,12 @@
+.fillingItem {
+  display: flex;
+  align-items: center;
+  max-width: 568px;
+  width: 100vw;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.fillingItem:last-of-type {
+  margin: 0;
+}

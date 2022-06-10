@@ -36,7 +36,6 @@ const Modal = ({
         <button className={styles.closeButton} onClick={closeModal}>
           <CloseIcon type="primary" />
         </button>
-
         {children}
       </div>
       <ModalOverlay handleClick={closeModal} />
@@ -48,7 +47,7 @@ const Modal = ({
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   heading: PropTypes.string,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Modal;

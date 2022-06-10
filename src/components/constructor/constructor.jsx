@@ -1,115 +1,72 @@
 /* eslint-disable no-undef */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.css';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import { apiConfig, parseResponse } from '../../api/api-config';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import Preloader from '../preloader/preloader';
 import Modal from '../modal/modal';
-import { useConstructorState } from '../../hooks/useConstructorState';
-import { BURGER_CONSTRUCTOR_ACTION_TYPE } from '../../providers';
+import {
+  getIngredients, resetIngredientsError, resetOrderError, closeOrderModal, closeIngredientModal, resetConstructor,
+} from '../../providers/actions/export';
 
 export const Constructor = () => {
-  const { ingredients, dispatch } = useConstructorState();
-  const [isloading, setIsloading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-  /* Булевый стейт для изменения состояния (открыто/закрыто) для модального окна с деталями сделанного заказа */
-  const [isOrderDetailsOpened, setIsOrderDetailsOpened] = useState(false);
-  /* Булевый стейт для изменения состояния (открыто/закрыто) для модального окна с ингредиентом */
-  const [isIngredientDetailsOpened, setIsIngredientDetailsOpened] = useState(false);
-  /* Стейт для передачи в модальное окно выбранного ингредиента */
-  const [ingredient, setIngredient] = useState({});
-  const [orderNumber, setOrderNumber] = useState(null);
+  // «вытащить» кусок состояния в компонент из store
+  const { ingredientsRequest, ingredientsRequestFailed } = useSelector((store) => store.ingredients);
+  const { orderRequest, orderRequestFailed, orderNumber } = useSelector((store) => store.order);
+  const { viewedIngredient } = useSelector((store) => store.ingredient);
+  // Отправка экшенов в store
+  const dispatch = useDispatch();
 
-  /* Запрос на сервер и монитрование полученного списка ингредиентов в компонент "BurgerIngredients" */
-  function getIngredients() {
-    fetch(`${apiConfig.baseUrl}/ingredients`, {
-      headers: apiConfig.headers,
-    })
-      .then(parseResponse)
-      .then((res) => {
-        dispatch({
-          type: BURGER_CONSTRUCTOR_ACTION_TYPE.SET_INGREDIENTS,
-          payload: res.data,
-        });
-      })
-      .catch(() => {
-        setHasError(true);
-      })
-      .finally(() => {
-        setIsloading(false);
-      });
-  }
-  // При нажатии на кнопку «Оформить заказ» отправляйте запрос к API
-
-  const ingredientId = ingredients.map((i) => i._id);
-
-  const postOrder = () => {
-    fetch(`${apiConfig.baseUrl}/orders`, {
-      method: 'POST',
-      headers: apiConfig.headers,
-      body: JSON.stringify({
-        ingredients: ingredientId,
-      }),
-    })
-      .then(parseResponse)
-      .then((res) => setOrderNumber(res.order.number))
-      .catch(() => {
-        setHasError(true);
-      })
-      .finally(() => {
-        setIsloading(false);
-      });
+  const resetErrors = () => {
+    dispatch(resetIngredientsError());
+    dispatch(resetOrderError());
   };
-  /* Монитрование пустого массива для ингредиентов, куда в дальнейшем будут вмонитрованы ингредиенты функцией "getIngredients" */
+
+  const closeIngredientDetailsModal = () => {
+    dispatch(closeIngredientModal());
+  };
+
+  const closeOrderDetailsModal = useCallback(() => {
+    dispatch(closeOrderModal());
+    dispatch(resetConstructor());
+  }, [dispatch]);
+
   useEffect(() => {
-    getIngredients();
-  }, []);
+    dispatch(getIngredients());
+  }, [dispatch]);
 
-  /* Закрытие модального окна */
-  const closeAllModals = () => {
-    setIsIngredientDetailsOpened(false);
-    setIsOrderDetailsOpened(false);
-    setHasError(false);
-  };
-  /* Хендлер клика по ингредиенту, открывающий модалку и передающий в нее значения кликнутого ингредиента,
-  "item", передан через props в компонент "BurgerIngredients" */
-  const handleIngredientClick = (item) => {
-    setIngredient(item);
-    setIsIngredientDetailsOpened(true);
-  };
-  /* Хендлер октрытия модального окна с деталями заказа */
-  const handleOrderClick = () => {
-    setOrderNumber(null);
-    setIsOrderDetailsOpened(true);
-    postOrder();
-  };
-  /* Рендер всех компонентов */
   return (
     <>
+      {!ingredientsRequestFailed && !ingredientsRequest && (
       <main className={`${styles.constructor} mb-10`}>
-        <BurgerIngredients onIngredientClick={handleIngredientClick} />
-        <BurgerConstructor onOrderConfirmClick={handleOrderClick} />
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </DndProvider>
       </main>
-      {!isloading && hasError && (
+      )}
+
+      {ingredientsRequestFailed && orderRequestFailed && (
         <Modal
           heading="Что-то пошло не так..."
-          closeModal={handleCloseClick}
+          closeModal={resetErrors}
         />
       )}
-      {isOrderDetailsOpened && (
-        <Modal closeModal={closeAllModals}>
-          <OrderDetails orderNum={orderNumber} />
+      {orderNumber && (
+        <Modal closeModal={closeOrderDetailsModal}>
+            {orderRequest && !orderFailed && <Preloader />}
+          {!orderRequest && !orderRequestFailed && <OrderDetails />}
         </Modal>
       )}
-      {isIngredientDetailsOpened && (
-        <Modal
-          heading="Детали ингредиента"
-          closeModal={closeAllModals}
-        >
-          <IngredientDetails ingredient={ingredient} />
-        </Modal>
+      {viewedIngredient && (
+      <Modal heading="Детали ингредиента" closeModal={closeIngredientDetailsModal}>
+        <IngredientDetails ingredient={viewedIngredient} />
+      </Modal>
       )}
     </>
   );

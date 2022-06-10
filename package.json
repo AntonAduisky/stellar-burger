@@ -13,10 +13,19 @@
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
+    "immutability-helper": "^3.1.1",
     "prop-types": "^15.8.1",
     "react": "^16.8.6",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^16.8.6",
+    "react-intersection-observer": "^9.2.2",
+    "react-redux": "^8.0.2",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
