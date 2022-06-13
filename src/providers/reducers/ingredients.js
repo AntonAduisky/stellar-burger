@@ -5,14 +5,14 @@ import {
   RESET_INGREDIENTS_ERROR_STATUS,
 } from '../actions/ingredients';
 
-const initialState = {
+const $initialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsRequestFailed: false,
 };
 
 // eslint-disable-next-line default-param-last
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = $initialState, action) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {

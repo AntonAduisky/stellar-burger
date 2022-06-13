@@ -1,11 +1,11 @@
 /* eslint-disable default-param-last */
 import { SET_INGREDIENT, CLOSE_INGREDIENT_DETAILS } from '../actions/ingredient';
 
-const initialState = {
+const $initialState = {
   viewedIngredient: null,
 };
 
-export const ingredientReducer = (state = initialState, action) => {
+export const ingredientReducer = (state = $initialState, action) => {
   switch (action.type) {
     case SET_INGREDIENT:
       return {

@@ -3,7 +3,7 @@ import {
   ADD, DELETE, RESET, CHANGE_ORDER,
 } from '../actions/constructor';
 
-const initialState = {
+const $initialState = {
   bun: null,
   filling: [],
   ingredientIds: [],
@@ -11,7 +11,7 @@ const initialState = {
 };
 
 // eslint-disable-next-line default-param-last
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = $initialState, action) => {
   switch (action.type) {
     case ADD:
       if (action.item.type === 'bun') {
@@ -48,7 +48,7 @@ export const constructorReducer = (state = initialState, action) => {
       };
 
     case RESET:
-      return initialState;
+      return $initialState;
 
     case CHANGE_ORDER:
       return {

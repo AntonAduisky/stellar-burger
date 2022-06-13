@@ -6,14 +6,14 @@ import {
   RESET_ORDER_ERROR,
 } from '../actions/order';
 
-const initialState = {
+const $initialState = {
   orderNumber: null,
   orderRequest: false,
   orderRequestFailed: false,
 };
 
 // eslint-disable-next-line default-param-last
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = $initialState, action) => {
   switch (action.type) {
     case POST_ORDER_REQUEST: {
       return {
