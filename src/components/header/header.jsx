@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import {
   Logo,
   BurgerIcon,
@@ -6,7 +7,7 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles.module.css';
-// шапка
+
 export const Header = () => (
   <header className={`${styles.header} pt-4 pb-4 pt-10`}>
     <nav className={`${styles.navigation}`}>
@@ -14,28 +15,44 @@ export const Header = () => (
         <menu className={`${styles.menuList} pt-4 pb-4`}>
 
           <li className="pt-4 pr-5 pb-4 pl-5">
-            <a href="/" className={`${styles.linkActive} text text_type_main-default`}>
+            <NavLink
+              activeClassName={styles.linkActive}
+              className={`${styles.link} text text_type_main-default`}
+              exact
+              to="/"
+            >
               <BurgerIcon />
               <span className="ml-2">Конструктор</span>
-            </a>
+            </NavLink>
           </li>
 
           <li className="pt-4 pr-5 pb-4 pl-5 ml-2">
-            <a href="/" className={`${styles.link} text text_type_main-default`}>
+            <NavLink
+              activeClassName={styles.linkActive}
+              className={`${styles.link} text text_type_main-default`}
+              exact
+              to="/profile/orders"
+            >
               <ListIcon />
               <span className="ml-2">Лента заказов</span>
-            </a>
+            </NavLink>
           </li>
 
         </menu>
-        <div className="pt-2 pb-2">
-          <Logo />
-        </div>
+        <Link to="/">
+          <div className="pt-2 pb-2">
+            <Logo />
+          </div>
+        </Link>
       </div>
-      <a href="/" className={`${styles.link} text text_type_main-default`}>
+      <NavLink
+        activeClassName={styles.linkActive}
+        className={`${styles.link} text text_type_main-default`}
+        to="/profile"
+      >
         <ProfileIcon type="secondary" />
         <span className="ml-2">Личный кабинет</span>
-      </a>
+      </NavLink>
     </nav>
   </header>
 );

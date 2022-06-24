@@ -34,6 +34,15 @@
 }
 
 .linkActive {
+  color: rgb(240, 240, 240, 1);
+}
+
+.linkActive svg {
+  fill: white;
+}
+
+
+/* .linkActive {
   composes: link;
   color: #f2f2f3;
-}
+} */
