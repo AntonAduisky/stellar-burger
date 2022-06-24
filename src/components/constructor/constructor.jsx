@@ -1,23 +1,33 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useCallback } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.css';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Preloader from '../preloader/preloader';
 import Modal from '../modal/modal';
+
+import MainContent from "../main-content/main-content";
+
 import {
   getIngredients, resetIngredientsError, resetOrderError, closeOrderModal, closeIngredientModal, resetConstructor,
 } from '../../providers/actions/export';
 
+import {
+  Profile,
+  NotFound,
+  Login,
+  Register,
+  ForgotPassword,
+  ResetPassword,
+} from '../../pages';
+
 export const Constructor = () => {
   // «вытащить» кусок состояния в компонент из store
-  const { ingredientsRequest, ingredientsRequestFailed } = useSelector((store) => store.ingredients);
-  const { orderRequest, orderRequestFailed, orderNumber } = useSelector((store) => store.order);
+  const { ingredientsRequestFailed } = useSelector((store) => store.ingredients);
+  const { orderRequestFailed } = useSelector((store) => store.order);
+  const { orderRequest, orderNumber } = useSelector((store) => store.order);
   const { viewedIngredient } = useSelector((store) => store.ingredient);
   // Отправка экшенов в store
   const dispatch = useDispatch();
@@ -41,15 +51,30 @@ export const Constructor = () => {
   }, [dispatch]);
 
   return (
-    <>
-      {!ingredientsRequestFailed && !ingredientsRequest && (
-      <main className={`${styles.constructor} mb-10`}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>
-      )}
+    <div className={`${styles.constructor} mb-10`}>
+      <Switch>
+        <Route exact path="/">
+          <MainContent />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/register">
+          <Register />
+        </Route>
+        <Route exact path="/forgot-password">
+          <ForgotPassword />
+        </Route>
+        <Route exact path="/reset-password">
+          <ResetPassword />
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
 
       {ingredientsRequestFailed && orderRequestFailed && (
         <Modal
@@ -64,10 +89,10 @@ export const Constructor = () => {
         </Modal>
       )}
       {viewedIngredient && (
-      <Modal heading="Детали ингредиента" closeModal={closeIngredientDetailsModal}>
-        <IngredientDetails ingredient={viewedIngredient} />
-      </Modal>
+        <Modal heading="Детали ингредиента" closeModal={closeIngredientDetailsModal}>
+          <IngredientDetails ingredient={viewedIngredient} />
+        </Modal>
       )}
-    </>
+    </div>
   );
 };
