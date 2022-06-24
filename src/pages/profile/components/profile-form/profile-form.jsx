@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css';
 
 const ProfileForm = () => {
@@ -42,6 +42,14 @@ const ProfileForm = () => {
         errorText="Ошибка"
         size="default"
       />
+      <div className={styles.buttons_container}>
+        <Button type="secondary" size="medium">
+          Отмена
+        </Button>
+        <Button type="primary" size="medium">
+          Сохранить
+        </Button>
+      </div>
     </form>
   );
 };
