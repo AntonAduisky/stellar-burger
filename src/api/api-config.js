@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-undef */
 
-import { BASE_URL } from './constants';
+import { BASE_URL } from '../constants/export';
 
 class Api {
   constructor(data) {
