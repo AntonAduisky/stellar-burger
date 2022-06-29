@@ -33,6 +33,11 @@
   text-decoration: none;
 }
 
+.link:hover {
+  color: #f2f2f3;
+  transition: .3s linear;
+}
+
 .linkActive {
   color: rgb(240, 240, 240, 1);
 }

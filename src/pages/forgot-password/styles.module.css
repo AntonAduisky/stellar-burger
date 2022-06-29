@@ -12,8 +12,14 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 88px;
-  max-width: 480px;
-  width: 100%;
+  width: 480px;
+}
+.form div {
+  width:100%
+}
+
+.form svg {
+  margin-left: 190px;
 }
 
 .title{

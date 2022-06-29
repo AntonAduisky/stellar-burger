@@ -21,6 +21,7 @@ export const Profile = () => (
           <NavLink
             activeClassName={styles.link_active}
             className={`${styles.link} text text_type_main-medium`}
+            exact
             to="/profile/orders"
           >
             История заказов
