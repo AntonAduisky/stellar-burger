@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Route } from "react-router-dom";
 import styles from './styles.module.css';
 import ProfileForm from "./components/profile-form/profile-form";
 
@@ -42,9 +42,12 @@ export const Profile = () => (
         В этом разделе вы можете изменить свои персональные данные
       </p>
     </nav>
-    <aside>
+    <Route exact path="/profile">
       <ProfileForm />
-    </aside>
+    </Route>
+    <Route path="/profile/orders" exact>
+      <span className="text text_type_main-default">Скоро здесь будет лента заказов...</span>
+    </Route>
   </main>
 );
 
