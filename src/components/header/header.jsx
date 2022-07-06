@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
   Logo,
   BurgerIcon,
@@ -10,6 +11,7 @@ import styles from './styles.module.css';
 
 export const Header = () => {
   const { pathname } = useLocation();
+  const userData = useSelector((store) => store.userData.userData);
 
   return (
     <header className={`${styles.header} pt-4 pb-4 pt-10`}>
@@ -54,7 +56,7 @@ export const Header = () => {
           to="/profile"
         >
           <ProfileIcon type={pathname === '/profile' ? 'primary' : 'secondary'} />
-          <span className="ml-2">Личный кабинет</span>
+          <span className="ml-2">{userData ? userData.name : 'Личный кабинет'}</span>
         </NavLink>
       </nav>
     </header>

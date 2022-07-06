@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/destructuring-assignment */
 import React, { useMemo } from "react";
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -13,6 +14,7 @@ import styles from './styles.module.css';
 
 function ProductCard({ item }) {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const curentIngredient = () => {
     dispatch(setCurrentIngredient(item));
@@ -40,24 +42,32 @@ function ProductCard({ item }) {
   }, [bun, filling, item._id, item.type]);
 
   return (
-    <div
-      className={`${styles.card} pl-4 pr-4`}
-      onClick={curentIngredient}
-      ref={dragRef}
-      draggable
+    <Link
+      className={styles.link}
+      to={{
+        pathname: `/ingredients/${item._id}`,
+        state: { background: location },
+      }}
     >
-      {setCount > 0 && <Counter count={setCount} size="default" />}
-      <img
-        className={isDrag ? `${styles.cardIsDrag}` : null}
-        src={item.image}
-        alt={item.name}
-      />
-      <p className="text text_type_digits-default mt-1 mb-1">
-        {item.price}
-        <CurrencyIcon />
-      </p>
-      <h3 className="text text_type_main-default">{item.name}</h3>
-    </div>
+      <div
+        className={`${styles.card} pl-4 pr-4`}
+        onClick={curentIngredient}
+        ref={dragRef}
+        draggable
+      >
+        {setCount > 0 && <Counter count={setCount} size="default" />}
+        <img
+          className={isDrag ? `${styles.cardIsDrag}` : null}
+          src={item.image}
+          alt={item.name}
+        />
+        <p className="text text_type_digits-default mt-1 mb-1">
+          {item.price}
+          <CurrencyIcon />
+        </p>
+        <h3 className="text text_type_main-default">{item.name}</h3>
+      </div>
+    </Link>
   );
 }
 

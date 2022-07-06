@@ -1,19 +1,19 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useCallback } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import {
+  Switch, Route, useLocation, useHistory,
+} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.css';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Preloader from '../preloader/preloader';
 import Modal from '../modal/modal';
-
+import ProtectedRoute from "../protected-route/protected-route";
 import MainContent from "../main-content/main-content";
-
 import {
-  getIngredients, resetIngredientsError, resetOrderError, closeOrderModal, closeIngredientModal, resetConstructor,
+  getIngredients, closeOrderModal, resetConstructor, getUserData, closeIngredientModal,
 } from '../../providers/actions/export';
-
 import {
   Profile,
   NotFound,
@@ -25,21 +25,23 @@ import {
 
 export const Constructor = () => {
   // «вытащить» кусок состояния в компонент из store
-  const { ingredientsRequestFailed } = useSelector((store) => store.ingredients);
-  const { orderRequestFailed } = useSelector((store) => store.order);
-  const { orderRequest, orderNumber } = useSelector((store) => store.order);
-  const { viewedIngredient } = useSelector((store) => store.ingredient);
+  const { orderRequest, orderRequestFailed, orderNumber } = useSelector((store) => store.order);
+  const accessToken = useSelector((store) => store.userData.accessToken);
+
   // Отправка экшенов в store
   const dispatch = useDispatch();
 
-  const resetErrors = () => {
-    dispatch(resetIngredientsError());
-    dispatch(resetOrderError());
-  };
+  const location = useLocation();
+  const background = location.state && location.state.background;
+  const history = useHistory();
 
-  const closeIngredientDetailsModal = () => {
-    dispatch(closeIngredientModal());
-  };
+  const closeIngredientDetailsModal = useCallback(
+    (path) => {
+      dispatch(closeIngredientModal());
+      history.push(path);
+    },
+    [dispatch, history],
+  );
 
   const closeOrderDetailsModal = useCallback(() => {
     dispatch(closeOrderModal());
@@ -48,11 +50,13 @@ export const Constructor = () => {
 
   useEffect(() => {
     dispatch(getIngredients());
-  }, [dispatch]);
+    dispatch(getUserData(accessToken));
+    // console.log(accessToken);
+  }, [dispatch, accessToken]);
 
   return (
     <div className={`${styles.constructor} mb-10`}>
-      <Switch>
+      <Switch location={background || location}>
         <Route exact path="/">
           <MainContent />
         </Route>
@@ -65,33 +69,31 @@ export const Constructor = () => {
         <Route exact path="/forgot-password">
           <ForgotPassword />
         </Route>
+        <Route exact path="/ingredients/:id">
+          <IngredientDetails title="Детали ингредиента" />
+        </Route>
         <Route exact path="/reset-password">
           <ResetPassword />
         </Route>
-        <Route path="/profile">
+        <ProtectedRoute path="/profile">
           <Profile />
-        </Route>
-        <Route path="*">
+        </ProtectedRoute>
+        <Route>
           <NotFound />
         </Route>
       </Switch>
 
-      {ingredientsRequestFailed && orderRequestFailed && (
-        <Modal
-          heading="Что-то пошло не так..."
-          closeModal={resetErrors}
-        />
-      )}
       {orderNumber && (
         <Modal closeModal={closeOrderDetailsModal}>
-            {orderRequest && !orderFailed && <Preloader />}
-          {!orderRequest && !orderRequestFailed && <OrderDetails />}
+          {!orderRequest && !orderRequestFailed ? <OrderDetails /> : <Preloader />}
         </Modal>
       )}
-      {viewedIngredient && (
-        <Modal heading="Детали ингредиента" closeModal={closeIngredientDetailsModal}>
-          <IngredientDetails ingredient={viewedIngredient} />
-        </Modal>
+      {background && (
+        <Route path="/ingredients/:id">
+          <Modal heading="Детали ингредиента" closeModal={() => closeIngredientDetailsModal('/')}>
+            <IngredientDetails />
+          </Modal>
+        </Route>
       )}
     </div>
   );

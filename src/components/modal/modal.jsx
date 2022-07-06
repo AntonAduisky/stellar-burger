@@ -18,7 +18,6 @@ const Modal = ({
       closeModal();
     }
   };
-
   useEffect(() => {
     document.addEventListener('keydown', handleEscKeydown);
     return () => {

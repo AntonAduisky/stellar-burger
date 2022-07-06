@@ -13,8 +13,14 @@
   margin-left: 190px;
 }
 
-.buttons_container {
+.buttons__container {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  animation: anim 1s forwards;
+}
+
+@keyframes anim {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }

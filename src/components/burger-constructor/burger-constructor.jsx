@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-expressions */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   ConstructorElement,
   Button,
@@ -18,11 +20,13 @@ function BurgerConstructor() {
   const {
     bun, filling, totalPrice, ingredientIds,
   } = useSelector((store) => store.burgerConstructor);
-
+  const userData = useSelector((store) => store.userData.userData);
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const postOrder = (orderData) => {
-    dispatch(postOrderRequest(orderData));
+    userData && dispatch(postOrderRequest(orderData));
+    !userData && history.push('/login');
   };
 
   const handleDelete = (item) => {

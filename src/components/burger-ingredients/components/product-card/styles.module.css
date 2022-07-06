@@ -16,3 +16,8 @@
 .cardIsDrag {
  background: radial-gradient(#642ca3, #3b21ad);;
 }
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
