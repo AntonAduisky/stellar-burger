@@ -1,21 +1,37 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { forgotPassword, setForgotPasswordState } from "../../providers/actions/export";
 import styles from "./styles.module.css";
 
 export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email) {
+      return;
+    }
+    dispatch(forgotPassword(email));
+    dispatch(setForgotPasswordState(true));
+    setEmail("");
+    history.push('/reset-password');
+  };
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
   };
+
   return (
     <main className={styles.wrapper}>
-      <form className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <h2
           className={`${styles.title} text text_type_main-medium mb-6`}
         >

@@ -1,16 +1,22 @@
-import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Input,
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { login } from "../../providers/actions/user";
 import styles from './styles.module.css';
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
+  const userData = useSelector((store) => store.userData.userData);
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -20,9 +26,24 @@ export const Login = () => {
     setPassword(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      return;
+    }
+    dispatch(login(email, password));
+  };
+
+  useEffect(() => {
+    if (userData) {
+      // eslint-disable-next-line no-unused-expressions
+      (location.state && location.state.previousLocation) ? history.push(location.state.previousLocation.pathname) : history.push('/');
+    }
+  }, [userData, history, location]);
+
   return (
     <main className={styles.wrapper}>
-      <form className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <h2 className={`${styles.title} text text_type_main-medium`}>
           Вход
         </h2>
