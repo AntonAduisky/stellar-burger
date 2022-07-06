@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-undef */
 
-import { BASE_URL } from '../constants/export';
+import { BASE_URL } from '../constants/api-constants';
 
 class Api {
   constructor(data) {
@@ -9,12 +9,7 @@ class Api {
   }
 
   // вспомогательная функция проверки на ошибку возвращающая либо ОК ,либо ОШИБКУ
-  _parseResponse = (res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
-  };
+  _parseResponse = (res) => (res.ok ? res.json() : res.json().then((err) => Promise.reject(err)));
 
   // Запрос ингредиентов
   takeIngredients() {
@@ -48,7 +43,7 @@ class Api {
   }
 
   // Запрос на обновление пароля
-  postPassword(password, code) {
+  postResetPassword(password, token) {
     return fetch(`${this._baseUrl}/password-reset/reset`, {
       method: "POST",
       headers: {
@@ -56,7 +51,7 @@ class Api {
       },
       body: JSON.stringify({
         password,
-        token: code,
+        token,
       }),
     }).then((res) => this._parseResponse(res));
   }
@@ -64,9 +59,9 @@ class Api {
   // Запрос на авторизацию
   postLogin(email, password) {
     return fetch(`${this._baseUrl}/auth/login`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email,
@@ -78,14 +73,14 @@ class Api {
   // Запрос на регистрацию
   postRegister(email, name, password) {
     return fetch(`${this._baseUrl}/auth/register`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        name,
         email,
         password,
-        name,
       }),
     }).then((res) => this._parseResponse(res));
   }
@@ -93,9 +88,8 @@ class Api {
   // Запрос данных пользователя
   getUserData(token) {
     return fetch(`${this._baseUrl}/auth/user`, {
-      method: "GET",
       headers: {
-        "Content-Type": "application/json;charset=utf-8",
+        'Content-Type': 'application/json',
         authorization: token,
       },
     }).then((res) => this._parseResponse(res));
@@ -114,7 +108,9 @@ class Api {
         name,
         password,
       }),
-    }).then((res) => this._parseResponse(res));
+    }).then((res) => {
+      this._parseResponse(res);
+    });
   }
 
   // Запрос для обновления токена
