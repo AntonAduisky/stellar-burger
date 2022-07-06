@@ -22,7 +22,7 @@ const enhancer = composeEnhancers(applyMiddleware(thunk));
 const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
-  <Router basename="/react-burger">
+  <Router basename="/stellar-burger">
     <Provider store={store}>
       <App />
     </Provider>
