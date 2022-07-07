@@ -11,6 +11,7 @@ import { createStore, applyMiddleware } from 'redux';
 // redux синхронен,для асинхронных действий нужен thunk
 import thunk from 'redux-thunk';
 import './index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { App } from './components/app/app';
 import { rootReducer } from './providers/reducers';
 import { composeEnhancers } from './utils/redux-devtools';
@@ -21,9 +22,11 @@ const enhancer = composeEnhancers(applyMiddleware(thunk));
 const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Router basename="/stellar-burger">
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </Router>,
   document.getElementById('root'),
 );
 

@@ -1,4 +1,5 @@
-import { postOrder } from '../../api/api-config';
+/* eslint-disable func-names */
+import api from '../../api/api-config';
 
 export const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST';
 export const POST_ORDER_SUCCESS = 'POST_ORDER_SUCCESS';
@@ -21,7 +22,7 @@ export function resetOrderError() {
 export function postOrderRequest(order) {
   return function (dispatch) {
     dispatch({ type: POST_ORDER_REQUEST });
-    postOrder(order)
+    api.postOrder(order)
       .then((res) => dispatch({ type: POST_ORDER_SUCCESS, orderNumber: res.order.number }))
       .catch(() => dispatch({ type: POST_ORDER_FAILED }));
   };

@@ -1,5 +1,6 @@
 .allProducts {
   width: 88%;
+  min-height: 160px;
   max-height: 500px;
   height: 100%;
   display: flex;

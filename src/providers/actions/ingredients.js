@@ -1,4 +1,5 @@
-import { takeIngredients } from '../../api/api-config';
+/* eslint-disable func-names */
+import api from '../../api/api-config';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
@@ -14,7 +15,7 @@ export function resetIngredientsError() {
 export function getIngredients() {
   return function (dispatch) {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
-    takeIngredients()
+    api.takeIngredients()
       .then((res) => {
         dispatch({ type: GET_INGREDIENTS_SUCCESS, ingredients: res.data });
       })

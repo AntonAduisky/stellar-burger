@@ -13,3 +13,11 @@ export const ProductType = {
     name: 'Соусы',
   },
 };
+
+// function setUniqueId() {
+//   return Date.now() * Math.random();
+// }
+
+// const totalPrice = useMemo(() => {
+//   return (bun ? bun.price * 2 : 0) + filling.reduce((acc, item) => acc + item.price, 0);
+// }, [order]);

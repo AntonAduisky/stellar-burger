@@ -7,6 +7,10 @@
   position: relative;
 }
 
+.main:hover{
+  transform: scale(1.05);
+}
+
 .main::after {
   position: absolute;
   top: 30%;
@@ -15,5 +19,9 @@
 }
 
 .mainHover{
+  composes: main;
+}
+
+.mainHover::after {
   content: ' ';
 }
