@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from "react";
 import { NavLink, Route, useRouteMatch } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -10,7 +11,6 @@ export const Profile = () => {
   const { path, url } = useRouteMatch();
 
   const handleLogout = () => {
-    // eslint-disable-next-line no-undef
     const refreshToken = localStorage.getItem('refreshToken');
     dispatch(logout(refreshToken));
   };
