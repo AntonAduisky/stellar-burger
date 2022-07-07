@@ -10,13 +10,14 @@ import { registration } from "../../providers/actions/user";
 import styles from './styles.module.css';
 
 export const Register = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [name, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const inputRef = useRef(null);
-  const dispatch = useDispatch();
+
   const userData = useSelector((store) => store.userData.userData);
-  const history = useHistory();
 
   const onNameChange = (e) => {
     setUserName(e.target.value);

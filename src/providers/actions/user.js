@@ -71,7 +71,7 @@ export const setLogoutFailed = () => ({ type: LOGOUT_FAILED });
 
 export const setRefreshToken = () => ({ type: REFRESH_TOKEN });
 export const setRefreshTokenSuccess = () => ({ type: REFRESH_TOKEN_SUCCESS });
-export const setRefreshTokenFailed = (err) => ({ type: REFRESH_TOKEN_FAILED, err: err.message });
+export const setRefreshTokenFailed = () => ({ type: REFRESH_TOKEN_FAILED });
 
 export const setCheckAuth = () => ({ type: CHECK_AUTH });
 export const setCheckAuthSuccess = () => ({ type: CHECK_AUTH_CHECKED });
@@ -81,10 +81,11 @@ export const registration = (email, name, password) => (dispatch) => {
   api.postRegister(email, name, password)
     .then((res) => {
       setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-      dispatch(setRegistrationSuccess(res.accessToken));
       localStorage.setItem('refreshToken', res.refreshToken);
+      dispatch(setRegistrationSuccess(res.accessToken));
     })
     .catch(() => {
+      console.log('ne fartanulo,davai eshe razok');
       dispatch(setRegistrationFailed());
     });
 };
@@ -107,16 +108,34 @@ export const login = (email, password) => (dispatch) => {
     });
 };
 
+export const logout = (refreshToken) => (dispatch) => {
+  dispatch(setLogout());
+  api.postLogout(refreshToken)
+    .then(() => {
+      console.log('log out,delete cookie');
+      deleteCookie('accessToken');
+      localStorage.removeItem('refreshToken');
+      dispatch(setLogoutSuccess());
+    })
+    .catch(() => {
+      dispatch(setLoginFailed());
+    });
+};
+
 const refreshToken = (refreshToken) => (dispatch) => {
   dispatch(setRefreshToken());
   api.postRefreshToken(refreshToken)
     .then((res) => {
+      console.log('refreshToken - is refresh');
       setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
       localStorage.setItem('refreshToken', res.refreshToken);
       dispatch(setRefreshTokenSuccess(res.accessToken));
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log('refreshToken - in error');
       dispatch(setRefreshTokenFailed());
+      dispatch(logout());
+      return Promise.reject(err);
     });
 };
 
@@ -171,25 +190,11 @@ export const resetPassword = (password, code) => (dispatch) => {
     });
 };
 
-export const logout = (refreshToken) => (dispatch) => {
-  dispatch(setLogout());
-  api.postLogout(refreshToken)
-    .then(() => {
-      deleteCookie('accessToken');
-      localStorage.removeItem('refreshToken');
-      dispatch(setLogoutSuccess());
-    })
-    .catch(() => {
-      dispatch(setLoginFailed());
-    });
-};
-
 // eslint-disable-next-line func-names
 export const checkAuth = (accessToken, refreshToken) => function (dispatch) {
   dispatch(setCheckAuth());
   if (accessToken) {
     dispatch(getUserData(accessToken, refreshToken));
   }
-
   dispatch(setCheckAuthSuccess());
 };
