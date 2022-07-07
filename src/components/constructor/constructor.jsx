@@ -11,8 +11,9 @@ import Preloader from '../preloader/preloader';
 import Modal from '../modal/modal';
 import ProtectedRoute from "../protected-route/protected-route";
 import MainContent from "../main-content/main-content";
+import { getCookie } from '../../utils/cookie';
 import {
-  getIngredients, closeOrderModal, resetConstructor, getUserData, closeIngredientModal,
+  getIngredients, closeOrderModal, resetConstructor, closeIngredientModal, checkAuth,
 } from '../../providers/actions/export';
 import {
   Profile,
@@ -26,7 +27,8 @@ import {
 export const Constructor = () => {
   // «вытащить» кусок состояния в компонент из store
   const { orderRequest, orderRequestFailed, orderNumber } = useSelector((store) => store.order);
-  const accessToken = useSelector((store) => store.userData.accessToken);
+  const accessToken = getCookie('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
 
   // Отправка экшенов в store
   const dispatch = useDispatch();
@@ -49,10 +51,10 @@ export const Constructor = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    dispatch(checkAuth(`Bearer ${accessToken}`, refreshToken));
     dispatch(getIngredients());
-    dispatch(getUserData(accessToken));
-    // console.log(accessToken);
-  }, [dispatch, accessToken]);
+    console.log(accessToken);
+  }, [dispatch, accessToken, refreshToken]);
 
   return (
     <div className={`${styles.constructor} mb-10`}>

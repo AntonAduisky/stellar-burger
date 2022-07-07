@@ -25,28 +25,42 @@ import {
   SEND_USER_DATA_SUCCESS,
   SEND_USER_DATA_FAILED,
   SET_FORGOT_PASSWORD_STATE,
+  CHECK_AUTH,
+  CHECK_AUTH_CHECKED,
 } from '../actions/user';
 
 const $initialState = {
   registrationRequest: false,
   registrationRequestFailed: false,
+
   loginRequest: false,
   loginRequestFailed: false,
+
   forgotPasswordRequest: false,
   forgotPasswordRequestFailed: false,
+
   resetPasswordRequest: false,
   resetPasswordRequestFailed: false,
+
   getUserDataRequest: false,
   getUserDataRequestFailed: false,
+
   logoutRequest: false,
   logoutRequestFailed: false,
+
   refreshTokenRequest: false,
   refreshTokenRequestFailed: false,
+
   sendUserDataRequest: false,
   sendUserDataRequestFailed: false,
+
   isPasswordForgot: false,
-  accessToken: null,
+
   userData: null,
+
+  isAuthChecked: false,
+  checkAuthRequest: false,
+  checkAuthFailed: false,
 };
 
 export const userReducer = (state = $initialState, action) => {
@@ -62,7 +76,6 @@ export const userReducer = (state = $initialState, action) => {
       return {
         ...state,
         registrationRequest: false,
-        accessToken: action.payload,
       };
     }
     case REGISTRATION_FAILED: {
@@ -83,7 +96,6 @@ export const userReducer = (state = $initialState, action) => {
       return {
         ...state,
         loginRequest: false,
-        accessToken: action.payload.accessToken,
         userData: action.payload.user,
       };
     }
@@ -167,7 +179,6 @@ export const userReducer = (state = $initialState, action) => {
         ...state,
         logoutRequest: false,
         userData: null,
-        accessToken: null,
       };
     }
     case LOGOUT_FAILED: {
@@ -188,7 +199,7 @@ export const userReducer = (state = $initialState, action) => {
       return {
         ...state,
         refreshTokenRequest: false,
-        accessToken: action.payload,
+        // accessToken: action.payload,
       };
     }
     case REFRESH_TOKEN_FAILED: {
@@ -223,6 +234,22 @@ export const userReducer = (state = $initialState, action) => {
       return {
         ...state,
         isPasswordForgot: action.payload,
+      };
+    }
+    case CHECK_AUTH: {
+      return {
+        ...state,
+        checkAuthRequest: true,
+        checkAuthFailed: false,
+        isAuthChecked: false,
+      };
+    }
+    case CHECK_AUTH_CHECKED: {
+      return {
+        ...state,
+        checkAuthRequest: false,
+        checkAuthFailed: false,
+        isAuthChecked: true,
       };
     }
     default: {

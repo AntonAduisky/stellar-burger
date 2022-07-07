@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
 import api from '../../api/api-config';
+import { setCookie, deleteCookie } from '../../utils/cookie';
 
 export const REGISTRATION = 'REGISTRATION';
 export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS';
@@ -36,6 +37,9 @@ export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED';
 
 export const SET_FORGOT_PASSWORD_STATE = 'SET_FORGOT_PASSWORD_STATE';
 
+export const CHECK_AUTH = 'CHECK_AUTH';
+export const CHECK_AUTH_CHECKED = 'CHECK_AUTH_CHECKED';
+
 export const setRegistration = () => ({ type: REGISTRATION });
 export const setRegistrationSuccess = (token) => ({ type: REGISTRATION_SUCCESS, payload: token });
 export const setRegistrationFailed = () => ({ type: REGISTRATION_FAILED });
@@ -66,17 +70,19 @@ export const setLogoutSuccess = () => ({ type: LOGOUT_SUCCESS });
 export const setLogoutFailed = () => ({ type: LOGOUT_FAILED });
 
 export const setRefreshToken = () => ({ type: REFRESH_TOKEN });
-export const setRefreshTokenSuccess = (token) => ({ type: REFRESH_TOKEN_SUCCESS, payload: token });
-export const setRefreshTokenFailed = () => ({ type: REFRESH_TOKEN_FAILED });
+export const setRefreshTokenSuccess = () => ({ type: REFRESH_TOKEN_SUCCESS });
+export const setRefreshTokenFailed = (err) => ({ type: REFRESH_TOKEN_FAILED, err: err.message });
+
+export const setCheckAuth = () => ({ type: CHECK_AUTH });
+export const setCheckAuthSuccess = () => ({ type: CHECK_AUTH_CHECKED });
 
 export const registration = (email, name, password) => (dispatch) => {
   dispatch(setRegistration());
   api.postRegister(email, name, password)
     .then((res) => {
+      setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
       dispatch(setRegistrationSuccess(res.accessToken));
-      // При передаче имени и значения ключа этот ключ будет добавлен в хранилище
-      // или обновлено значение этого ключа, если оно уже существует.
-      localStorage.setItem('refreshToken', res.refreshToken); // (keyName, keyValue)
+      localStorage.setItem('refreshToken', res.refreshToken);
     })
     .catch(() => {
       dispatch(setRegistrationFailed());
@@ -87,6 +93,7 @@ export const login = (email, password) => (dispatch) => {
   dispatch(setLogin());
   api.postLogin(email, password)
     .then((res) => {
+      setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
       dispatch(setLoginSuccess(res));
       // При передаче имени и значения ключа этот ключ будет добавлен в хранилище
       // или обновлено значение этого ключа, если оно уже существует.
@@ -104,6 +111,7 @@ const refreshToken = (refreshToken) => (dispatch) => {
   dispatch(setRefreshToken());
   api.postRefreshToken(refreshToken)
     .then((res) => {
+      setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
       localStorage.setItem('refreshToken', res.refreshToken);
       dispatch(setRefreshTokenSuccess(res.accessToken));
     })
@@ -167,11 +175,21 @@ export const logout = (refreshToken) => (dispatch) => {
   dispatch(setLogout());
   api.postLogout(refreshToken)
     .then(() => {
-      // При передаче имени ключа этот ключ будет удален из хранилища.
+      deleteCookie('accessToken');
       localStorage.removeItem('refreshToken');
       dispatch(setLogoutSuccess());
     })
     .catch(() => {
       dispatch(setLoginFailed());
     });
+};
+
+// eslint-disable-next-line func-names
+export const checkAuth = (accessToken, refreshToken) => function (dispatch) {
+  dispatch(setCheckAuth());
+  if (accessToken) {
+    dispatch(getUserData(accessToken, refreshToken));
+  }
+
+  dispatch(setCheckAuthSuccess());
 };

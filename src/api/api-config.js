@@ -116,9 +116,9 @@ class Api {
   // Запрос для обновления токена
   postRefreshToken(refreshToken) {
     return fetch(`${this._baseUrl}/auth/token`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         token: refreshToken,
@@ -129,9 +129,9 @@ class Api {
   // Запрос на выход из системы
   postLogout(refreshToken) {
     return fetch(`${this._baseUrl}/auth/logout`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         token: refreshToken,

@@ -4,11 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { sendUserData } from "../../../../providers/actions/export";
 import styles from './styles.module.css';
+import { getCookie } from '../../../../utils/cookie';
 
 const ProfileForm = () => {
   const userData = useSelector((store) => store.userData.userData);
-  const accessToken = useSelector((store) => store.userData.accessToken);
   const dispatch = useDispatch();
+  const accessToken = getCookie('accessToken');
+  // eslint-disable-next-line no-undef
+  const refreshToken = localStorage.getItem('refreshToken');
 
   const [name, setName] = useState("");
   const [login, setLogin] = useState("");
@@ -44,7 +47,7 @@ const ProfileForm = () => {
 
   const onSubmit = (evt) => {
     evt.preventDefault();
-    dispatch(sendUserData(accessToken, name, login, password));
+    dispatch(sendUserData(`Bearer ${accessToken}`, name, login, password, refreshToken));
   };
 
   const onCancelEditing = (evt) => {
