@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {
+  useState, useRef, useEffect, useCallback,
+} from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,13 +12,14 @@ import { registration } from "../../providers/actions/user";
 import styles from './styles.module.css';
 
 export const Register = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [name, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const inputRef = useRef(null);
-  const dispatch = useDispatch();
+
   const userData = useSelector((store) => store.userData.userData);
-  const history = useHistory();
 
   const onNameChange = (e) => {
     setUserName(e.target.value);
@@ -30,13 +33,13 @@ export const Register = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     if (!name || !email || !password) {
       return;
     }
     dispatch(registration(email, name, password));
-  };
+  }, [dispatch, email, name, password]);
 
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
