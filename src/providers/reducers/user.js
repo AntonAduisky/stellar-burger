@@ -85,6 +85,7 @@ export const userReducer = (state = $initialState, action) => {
       return {
         ...state,
         registrationRequest: false,
+        userData: action.payload,
       };
     }
     case REGISTRATION_FAILED: {

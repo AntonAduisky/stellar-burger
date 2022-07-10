@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {
+  useState, useRef, useEffect, useCallback,
+} from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -31,13 +33,13 @@ export const Register = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     if (!name || !email || !password) {
       return;
     }
     dispatch(registration(email, name, password));
-  };
+  }, [dispatch, email, name, password]);
 
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
