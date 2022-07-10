@@ -53,7 +53,6 @@ export const Constructor = () => {
   useEffect(() => {
     dispatch(checkAuth(`Bearer ${accessToken}`, refreshToken));
     dispatch(getIngredients());
-    console.log(accessToken);
   }, [dispatch, accessToken, refreshToken]);
 
   return (
