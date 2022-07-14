@@ -15,9 +15,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { App } from './components/app/app';
 import { rootReducer } from './providers/reducers';
 import { composeEnhancers } from './utils/redux-devtools';
+import { wsUrl } from './constants/api-constants';
+import { wsActions } from './providers/actions/ws';
+import { socketMiddleware } from './middleware/socketMiddleware';
 import reportWebVitals from './reportWebVitals';
 
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions)));
 // состояние приложения и методы для взаимодействия с ним
 const store = createStore(rootReducer, enhancer);
 
