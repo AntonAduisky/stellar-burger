@@ -1,77 +1,122 @@
 /* eslint-disable default-param-last */
 import {
-  WS_CONNECTION_CLOSED,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
-  WS_CONNECTION_WITH_TOKEN,
-  WS_GET_MESSAGE,
+  WS_CONNECTION_ERROR,
+  WS_CONNECTION_CLOSED,
+  WS_GET_ALL_ORDERS,
+  WS_GET_USER_ORDERS,
+  WS_USER_ORDERS_CONNECTION_SUCCESS,
+  WS_USER_ORDERS_CONNECTION_ERROR,
+  WS_USER_ORDERS_CONNECTION_CLOSED,
+  GET_ORDER_INFO,
+  GET_ORDER_INFO_SUCCESS,
+  GET_ORDER_INFO_FAILED,
+  CLEAN_ORDER_INFO,
 } from '../actions/ws';
 
 const $initialState = {
-  wsRequest: false,
-  wsConnected: false,
-  wsFailed: false,
-  orders: null,
-  total: '',
-  totalToday: '',
+  wsAllOrders: false,
+  wsUserOrders: false,
+  orders: [],
+  userOrders: [],
+  total: 0,
+  totalToday: 0,
+  orderInfoRequest: false,
+  orderInfoFailed: false,
+  orderInfo: null,
 };
 
-export const wsReducer = (state = $initialState, action) => {
+export const ordersReducer = (state = $initialState, action) => {
   switch (action.type) {
-    case WS_CONNECTION_START: {
+    case WS_CONNECTION_SUCCESS:
       return {
         ...state,
-        wsRequest: true,
-        wsConnected: false,
-        wsFailed: false,
+        allOrdersError: undefined,
+        wsAllOrders: true,
       };
-    }
-    case WS_CONNECTION_WITH_TOKEN: {
+
+    case WS_USER_ORDERS_CONNECTION_SUCCESS:
       return {
         ...state,
-        wsRequest: true,
-        wsConnected: false,
-        wsFailed: false,
+        userOrdersError: undefined,
+        wsUserOrders: true,
       };
-    }
-    case WS_CONNECTION_SUCCESS: {
+
+    case WS_CONNECTION_ERROR:
       return {
         ...state,
-        wsRequest: false,
-        wsFailed: false,
-        wsConnected: true,
+        allOrdersError: action.payload,
+        wsAllOrders: false,
       };
-    }
-    case WS_CONNECTION_ERROR: {
+
+    case WS_USER_ORDERS_CONNECTION_ERROR:
       return {
         ...state,
-        wsRequest: false,
-        wsConnected: false,
-        wsFailed: true,
+        userOrdersError: action.payload,
+        wsUserOrders: false,
       };
-    }
-    case WS_CONNECTION_CLOSED: {
+
+    case WS_CONNECTION_CLOSED:
       return {
         ...state,
-        wsRequest: false,
-        wsConnected: false,
-        wsFailed: false,
-        orders: null,
-        total: '',
-        totalToday: '',
+        allOrdersError: undefined,
+        wsAllOrders: false,
+        orders: [],
+        total: 0,
+        totalToday: 0,
       };
-    }
-    case WS_GET_MESSAGE: {
+
+    case WS_USER_ORDERS_CONNECTION_CLOSED:
       return {
         ...state,
+        userOrdersError: undefined,
+        wsUserOrders: false,
+        userOrders: [],
+        total: 0,
+        totalToday: 0,
+      };
+
+    case WS_GET_ALL_ORDERS:
+      return {
+        ...state,
+        allOrdersError: undefined,
         orders: action.payload.orders,
         total: action.payload.total,
         totalToday: action.payload.totalToday,
       };
-    }
-    default: {
+
+    case WS_GET_USER_ORDERS:
+      return {
+        ...state,
+        allOrdersError: undefined,
+        userOrders: action.payload.orders,
+      };
+    case GET_ORDER_INFO:
+      return {
+        ...state,
+        orderInfoRequest: true,
+        orderInfoFailed: false,
+      };
+    case GET_ORDER_INFO_SUCCESS:
+      return {
+        ...state,
+        orderInfoRequest: false,
+        orderInfo: action.payload,
+      };
+    case GET_ORDER_INFO_FAILED:
+      return {
+        ...state,
+        orderInfoRequest: false,
+        orderInfoFailed: true,
+      };
+    case CLEAN_ORDER_INFO:
+      return {
+        ...state,
+        orderInfoRequest: false,
+        orderInfoFailed: false,
+        orderInfo: null,
+      };
+    default:
       return state;
-    }
   }
 };

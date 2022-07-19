@@ -1,3 +1,4 @@
+// import { getCookie } from "../utils/cookie";
 // Middleware отвечает за отправку и получение сообщений, а также за обработку событий закрытия соединения и ошибок.
 // В качестве параметра мидлвар принимает wsUrl, который передаётся в процессе имплементации мидлвара в хранилище
 export const socketMiddleware = (wsUrl, wsActions) => (store) => {
@@ -7,19 +8,22 @@ export const socketMiddleware = (wsUrl, wsActions) => (store) => {
     const { dispatch } = store;
     const { type, payload } = action;
     const {
-      wsInit, onOpen, onClose, onError, onMessage, wsClose, wsInitWithToken,
+      wsInit, wsInitWithToken, onOpen, onClose, onError, onMessage,
     } = wsActions;
-    if (type === wsInit) {
-      // объект класса WebSocket
-      socket = new WebSocket(wsUrl);
-    }
 
     if (type === wsInitWithToken) {
+      // объект класса WebSocket
       socket = new WebSocket(payload);
     }
 
-    if (type === wsClose) {
-      socket.close();
+    if (type === wsInit) {
+      socket = new WebSocket(wsUrl);
+    }
+
+    // ?token=${accessToken}
+
+    if (type === onClose) {
+      socket.close(1000, 'CLOSE_DONE');
     }
 
     // функция, которая вызывается при открытии сокета
@@ -44,7 +48,6 @@ export const socketMiddleware = (wsUrl, wsActions) => (store) => {
         dispatch({ type: onClose, payload: event });
       };
     }
-
     next(action);
   };
 };
