@@ -15,6 +15,7 @@ import { ariaLable } from '../../constants/export';
 import FillingIngredients from './components/filling-ingredients/filling-ingredients';
 import FillingMain from './components/filling-main/filling-main';
 import FillingBun from './components/filling-bun/filling-bun';
+import { getCookie } from "../../utils/cookie";
 
 function BurgerConstructor() {
   const {
@@ -24,8 +25,10 @@ function BurgerConstructor() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const accessToken = getCookie('accessToken');
+
   const postOrder = (orderData) => {
-    userData && dispatch(postOrderRequest(orderData));
+    userData && dispatch(postOrderRequest(`Bearer ${accessToken}`, orderData));
     !userData && history.push('/login');
   };
 

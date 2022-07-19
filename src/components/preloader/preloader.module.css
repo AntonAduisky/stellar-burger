@@ -1,13 +1,13 @@
 .preloader {
   margin: auto;
-  height: 50px;
-  width: 50px;
-  border-left: 3px solid  #3311af;
-  border-bottom: 3px solid  #3311af;
-  border-right: 3px solid  #3311af;
-  border-top: 3px solid transparent;
+  height: 60px;
+  width: 60px;
+  border-left: 6px solid  #ffffff;
+  border-bottom: 6px solid  #ffffff;
+  border-right: 6px solid  #ffffff;
+  border-top: 6px solid transparent;
   border-radius: 50%;
-  animation: spinner 1s linear infinite;
+  animation: preloader 1s linear infinite;
 }
 
 @keyframes preloader {
