@@ -51,7 +51,7 @@ export const OrdersInfoDetails = ({ isPopup }) => {
 
   useEffect(() => {
     orderNumber && dispatch(getOrderInfo(+orderNumber));
-  }, [dispatch, orderNumber, orderInfo]);
+  }, [dispatch, orderNumber]);
 
   return (
 
