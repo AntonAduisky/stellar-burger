@@ -60,7 +60,6 @@ export const OrdersComponent = ({ order, isHistory = false }) => {
           <ul className={styles.ingredients_list}>
             {
               ingredients.map((ingredient, idx) => {
-                console.log(idx);
                 const foundIngredient = findIngredient(ingredient, ingredientsArray);
                 if (idx < 5) {
                   return (

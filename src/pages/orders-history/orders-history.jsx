@@ -9,6 +9,8 @@ import Preloader from "../../components/preloader/preloader";
 
 export const OrdersHistory = () => {
   const { userOrders } = useSelector((store) => store.ordersData);
+  userOrders.reverse();
+
   const dispatch = useDispatch();
 
   const accessToken = getCookie('accessToken');
