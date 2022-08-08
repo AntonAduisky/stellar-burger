@@ -4,16 +4,20 @@ import {
   POST_ORDER_REQUEST,
   CLOSE_ORDER_DETAILS,
   RESET_ORDER_ERROR,
-} from '../actions/order';
+} from '../constants/export';
 
-const $initialState = {
+import type { TOrderActions } from '../actions/export';
+import type { IOrderState } from '../types/export';
+
+const $initialState: IOrderState = {
   orderNumber: null,
   orderRequest: false,
   orderRequestFailed: false,
+  isOrderDetailsOpened: false,
 };
 
-// eslint-disable-next-line default-param-last
-export const orderReducer = (state = $initialState, action) => {
+// eslint-disable-next-line @typescript-eslint/default-param-last
+export const orderReducer = (state = $initialState, action: TOrderActions): IOrderState => {
   switch (action.type) {
     case POST_ORDER_REQUEST: {
       return {

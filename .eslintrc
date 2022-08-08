@@ -13,21 +13,13 @@
             "version": "detect"
         }
     },
-    "plugins": [
-        "import",
-        "react",
-        "@typescript-eslint",
-        "react-hooks"
-    ],
     "extends": [
         "airbnb",
-        "plugin:react-hooks/recommended"
-        // "airbnb-typescript"
+        "plugin:react-hooks/recommended",
+        "airbnb-typescript"
     ],
     "rules": {
-        "react/function-component-definition": "off",
         "linebreak-style": "off",
-        "import/prefer-default-export": "off",
         "max-len": [
             "warn",
             {
@@ -38,6 +30,30 @@
             }
         ],
         "no-underscore-dangle": "off",
-        "quotes": "off"
+        "import/extensions": "off",
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    "builtin",
+                    "external",
+                    "index",
+                    "internal",
+                    "parent",
+                    "sibling",
+                    "object",
+                    "type"
+                ],
+                "newlines-between": "always"
+            }
+        ],
+        "import/prefer-default-export": "off",
+        "@typescript-eslint/consistent-type-imports": [
+            "error",
+            {
+                "disallowTypeAnnotations": false
+            }
+        ],
+        "@typescript-eslint/no-shadow": "off"
     }
 }

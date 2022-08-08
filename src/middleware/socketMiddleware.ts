@@ -1,35 +1,42 @@
 // import { getCookie } from "../utils/cookie";
+import type { IWsActions, IWsUserActions } from '../providers/types/data';
+import type { AppDispatch, RootState } from '../providers/types';
+import type { Middleware, MiddlewareAPI } from 'redux';
+
 // Middleware отвечает за отправку и получение сообщений, а также за обработку событий закрытия соединения и ошибок.
 // В качестве параметра мидлвар принимает wsUrl, который передаётся в процессе имплементации мидлвара в хранилище
-export const socketMiddleware = (wsUrl, wsActions) => (store) => {
-  let socket = null;
+export const socketMiddleware = (wsUrl: string, wsActions: IWsActions | IWsUserActions)
+:Middleware => ((store: MiddlewareAPI<AppDispatch, RootState>) => {
+  let socket: WebSocket | null = null;
 
   return (next) => (action) => {
     const { dispatch } = store;
     const { type, payload } = action;
     const {
-      wsInit, wsInitWithToken, onOpen, onClose, onError, onMessage,
+      onOpen, onClose, onError, onMessage,
     } = wsActions;
 
-    if (type === wsInitWithToken) {
+    if (type === (wsActions as IWsUserActions).wsInitWithToken) {
       // объект класса WebSocket
       socket = new WebSocket(payload);
     }
 
-    if (type === wsInit) {
+    if (type === (wsActions as IWsActions).wsInit) {
       socket = new WebSocket(wsUrl);
     }
 
-    // ?token=${accessToken}
-
     if (type === onClose) {
-      socket.close(1000, 'CLOSE_DONE');
+      socket?.close(1000, 'CLOSE_DONE');
     }
 
     // функция, которая вызывается при открытии сокета
     if (socket) {
       socket.onopen = (event) => {
         dispatch({ type: onOpen, payload: event });
+      };
+      // функция, которая вызывается при закрытии соединения
+      socket.onclose = () => {
+        dispatch({ type: onClose });
       };
       // функция, которая вызывается при ошибке соединения
       socket.onerror = (event) => {
@@ -43,11 +50,7 @@ export const socketMiddleware = (wsUrl, wsActions) => (store) => {
 
         dispatch({ type: onMessage, payload: restParsedData });
       };
-      // функция, которая вызывается при закрытии соединения
-      socket.onclose = (event) => {
-        dispatch({ type: onClose, payload: event });
-      };
     }
     next(action);
   };
-};
+}) as Middleware;

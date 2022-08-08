@@ -1,17 +1,21 @@
 import update from 'immutability-helper';
+
 import {
   ADD, DELETE, RESET, CHANGE_ORDER,
-} from '../actions/constructor';
+} from '../constants/export';
 
-const $initialState = {
+import type { IConstructorState } from '../types/export';
+import type { TConstructorActions } from '../actions/export';
+
+const $initialState: IConstructorState = {
   bun: null,
   filling: [],
   ingredientIds: [],
   totalPrice: 0,
 };
 
-// eslint-disable-next-line default-param-last
-export const constructorReducer = (state = $initialState, action) => {
+// eslint-disable-next-line @typescript-eslint/default-param-last
+export const constructorReducer = (state = $initialState, action: TConstructorActions): IConstructorState => {
   switch (action.type) {
     case ADD:
       if (action.item.type === 'bun') {
@@ -20,7 +24,7 @@ export const constructorReducer = (state = $initialState, action) => {
             ...state,
             bun: action.item,
             ingredientIds: [...state.ingredientIds]
-              .filter((id) => id !== state.bun._id)
+              .filter((id) => id !== state?.bun?._id)
               .concat(action.item._id),
             totalPrice: state.totalPrice - state.bun.price * 2 + action.item.price * 2,
           };

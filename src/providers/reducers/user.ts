@@ -36,9 +36,12 @@ import {
 
   CHECK_AUTH,
   CHECK_AUTH_CHECKED,
-} from '../actions/user';
+} from '../constants/export';
 
-const $initialState = {
+import type { TUserActions } from '../actions/export';
+import type { IUserState } from '../types/export';
+
+const $initialState: IUserState = {
   registrationRequest: false,
   registrationRequestFailed: false,
 
@@ -72,7 +75,8 @@ const $initialState = {
   checkAuthFailed: false,
 };
 
-export const userReducer = (state = $initialState, action) => {
+// eslint-disable-next-line @typescript-eslint/default-param-last
+export const userReducer = (state = $initialState, action: TUserActions): IUserState => {
   switch (action.type) {
     case REGISTRATION: {
       return {
@@ -106,7 +110,7 @@ export const userReducer = (state = $initialState, action) => {
       return {
         ...state,
         loginRequest: false,
-        userData: action.payload.user,
+        userData: action.payload,
       };
     }
     case LOGIN_FAILED: {

@@ -38,9 +38,9 @@ class Api {
   // Запрос на восстановление пароля
   postEmail(email) {
     return fetch(`${this._baseUrl}/password-reset`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email,
@@ -51,9 +51,9 @@ class Api {
   // Запрос на обновление пароля
   postResetPassword(password, token) {
     return fetch(`${this._baseUrl}/password-reset/reset`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         password,
@@ -104,9 +104,9 @@ class Api {
   // Запрос на редактирвоание данных пользователя
   patchUserData(token, name, email, password) {
     return fetch(`${this._baseUrl}/auth/user`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json;charset=utf-8",
+        'Content-Type': 'application/json;charset=utf-8',
         authorization: token,
       },
       body: JSON.stringify({

@@ -12,9 +12,12 @@ import {
   GET_ORDER_INFO_SUCCESS,
   GET_ORDER_INFO_FAILED,
   CLEAN_ORDER_INFO,
-} from '../actions/ws';
+} from '../constants/export';
 
-const $initialState = {
+import type { TWsActions } from '../actions/export';
+import type { IWsState } from '../types/export';
+
+const $initialState: IWsState = {
   wsAllOrders: false,
   wsUserOrders: false,
   orders: [],
@@ -24,9 +27,12 @@ const $initialState = {
   orderInfoRequest: false,
   orderInfoFailed: false,
   orderInfo: null,
+  allOrdersError: undefined,
+  userOrdersError: undefined,
 };
 
-export const ordersReducer = (state = $initialState, action) => {
+// eslint-disable-next-line @typescript-eslint/default-param-last
+export const ordersReducer = (state = $initialState, action: TWsActions): IWsState => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {

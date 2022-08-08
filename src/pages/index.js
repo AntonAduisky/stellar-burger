@@ -4,7 +4,7 @@ import { Register } from './register/register';
 import { ForgotPassword } from './forgot-password/forgot-password';
 import { ResetPassword } from './reset-password/reset-password';
 import { NotFound } from './not-found/not-found';
-import { Feed } from "./feed/feed";
+import { Feed } from './feed/feed';
 
 export {
   Profile, Login, Register, ForgotPassword, ResetPassword, NotFound, Feed,
