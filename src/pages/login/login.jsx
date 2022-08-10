@@ -1,18 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-unused-expressions */
-import React, { useState, useRef, useEffect } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Input,
   Button,
   PasswordInput,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { login } from "../../providers/actions/user";
+} from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { login } from '../../providers/actions/user';
+
 import styles from './styles.module.css';
 
-export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -73,17 +76,17 @@ export const Login = () => {
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive">
-        {"Вы — новый пользователь? "}
+        {'Вы — новый пользователь? '}
         <Link className={styles.link} to="/register">
           Зарегистрироваться
         </Link>
       </p>
       <p className="text text_type_main-default text_color_inactive mt-4">
-        {"Забыли пароль? "}
+        {'Забыли пароль? '}
         <Link className={styles.link} to="/forgot-password">
           Восстановить пароль
         </Link>
       </p>
     </main>
   );
-};
+}

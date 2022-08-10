@@ -4,17 +4,17 @@ import {
   Switch, Route, useLocation, useHistory,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import styles from './styles.module.css';
+
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Preloader from '../preloader/preloader';
 import Modal from '../modal/modal';
-import ProtectedRoute from "../protected-route/protected-route";
-import MainContent from "../main-content/main-content";
-import { OrdersInfoDetails } from "../orders-info-details/orders-info-details";
+import ProtectedRoute from '../protected-route/protected-route';
+import MainContent from '../main-content/main-content';
+import { OrdersInfoDetails } from '../orders-info-details/orders-info-details';
 import { getCookie } from '../../utils/cookie';
 import {
-  getIngredients, closeOrderModal, resetConstructor, closeIngredientModal, checkAuth, cleanOrderInfo,
+  getIngredients, closeOrderModal, resetConstructor, checkAuth, cleanOrderInfo,
 } from '../../providers/actions/export';
 import {
   Profile,
@@ -26,7 +26,9 @@ import {
   Feed,
 } from '../../pages';
 
-export const Constructor = () => {
+import styles from './styles.module.css';
+
+export function Constructor() {
   const { orderRequest, orderRequestFailed, orderNumber } = useSelector((store) => store.order);
   const accessToken = getCookie('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
@@ -37,12 +39,11 @@ export const Constructor = () => {
   const background = location.state && location.state.background;
   const history = useHistory();
 
-  const closeIngredientDetailsModal = useCallback(
+  const closeModal = useCallback(
     (path) => {
-      dispatch(closeIngredientModal());
       history.push(path);
     },
-    [dispatch, history],
+    [history],
   );
 
   const closeOrderDetailsModal = useCallback(() => {
@@ -109,7 +110,7 @@ export const Constructor = () => {
 
       {background && (
         <Route exact path="/ingredients/:id">
-          <Modal heading="Детали ингредиента" closeModal={() => closeIngredientDetailsModal('/')}>
+          <Modal heading="Детали ингредиента" closeModal={() => closeModal('/')}>
             <IngredientDetails />
           </Modal>
         </Route>
@@ -137,4 +138,4 @@ export const Constructor = () => {
 
     </div>
   );
-};
+}

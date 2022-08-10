@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-unused-expressions */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,14 +9,16 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
-import FillingItem from './components/filling-item/filling-item';
-import styles from './styles.module.css';
+
 import { postOrderRequest, removeItem, addItem } from '../../providers/actions/export';
 import { ariaLable } from '../../constants/export';
+import { getCookie } from '../../utils/cookie';
+
+import FillingItem from './components/filling-item/filling-item';
+import styles from './styles.module.css';
 import FillingIngredients from './components/filling-ingredients/filling-ingredients';
 import FillingMain from './components/filling-main/filling-main';
 import FillingBun from './components/filling-bun/filling-bun';
-import { getCookie } from "../../utils/cookie";
 
 function BurgerConstructor() {
   const {
@@ -37,7 +40,7 @@ function BurgerConstructor() {
   };
 
   const [{ isHover }, drop] = useDrop({
-    accept: "ingredient",
+    accept: 'ingredient',
     drop(item) {
       dispatch(addItem(item));
     },

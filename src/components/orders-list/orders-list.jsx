@@ -1,11 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styles from './orders-list.module.css';
-import { OrdersComponent } from "../orders-component/orders-component";
-import Preloader from "../preloader/preloader";
 
-export const OrdersList = () => {
+import { OrdersComponent } from '../orders-component/orders-component';
+import Preloader from '../preloader/preloader';
+
+import styles from './orders-list.module.css';
+
+export function OrdersList() {
   const { orders } = useSelector((store) => store.ordersData);
 
   return (
@@ -28,4 +30,4 @@ export const OrdersList = () => {
       </div>
     </div>
   );
-};
+}

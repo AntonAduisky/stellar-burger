@@ -1,15 +1,16 @@
-/* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
-/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./orders-component.module.css";
-import { formatDate } from "../../constants/variables";
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const OrdersComponent = ({ order, isHistory = false }) => {
+import { formatDate } from '../../constants/variables';
+
+import styles from './orders-component.module.css';
+
+export function OrdersComponent({ order, isHistory = false }) {
   const location = useLocation();
   const {
     status, number, createdAt, name, ingredients,
@@ -101,4 +102,4 @@ export const OrdersComponent = ({ order, isHistory = false }) => {
       </Link>
     </li>
   );
-};
+}

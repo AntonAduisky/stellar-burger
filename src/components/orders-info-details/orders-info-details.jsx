@@ -4,13 +4,15 @@
 /* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useParams } from 'react-router-dom';
-import styles from './orders-info-details.module.css';
-import Preloader from "../preloader/preloader";
-import { getOrderInfo } from "../../providers/actions/export";
 
-export const OrdersInfoDetails = ({ isPopup }) => {
+import Preloader from '../preloader/preloader';
+import { getOrderInfo } from '../../providers/actions/export';
+
+import styles from './orders-info-details.module.css';
+
+export function OrdersInfoDetails({ isPopup }) {
   const dispatch = useDispatch();
   const { orderNumber } = useParams();
   const { orderInfo } = useSelector((store) => store.ordersData);
@@ -50,6 +52,7 @@ export const OrdersInfoDetails = ({ isPopup }) => {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     orderNumber && dispatch(getOrderInfo(+orderNumber));
   }, [dispatch, orderNumber]);
 
@@ -131,4 +134,4 @@ export const OrdersInfoDetails = ({ isPopup }) => {
     ) : <Preloader />
 
   );
-};
+}

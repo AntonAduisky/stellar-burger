@@ -3,11 +3,13 @@ import { useDrop, useDrag } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
 import { changeOrder } from '../../../../providers/actions/constructor';
-import styles from './styles.module.css';
 import { productPropType } from '../../../../constants/propTypes';
 
-const FillingItem = ({ item, deleteHandler, index }) => {
+import styles from './styles.module.css';
+
+function FillingItem({ item, deleteHandler, index }) {
   const ref = useRef(null);
   const id = item.uId;
   const dispatch = useDispatch();
@@ -77,7 +79,7 @@ const FillingItem = ({ item, deleteHandler, index }) => {
       />
     </li>
   );
-};
+}
 
 FillingItem.propTypes = {
   item: productPropType.isRequired,

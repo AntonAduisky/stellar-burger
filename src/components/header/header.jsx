@@ -7,9 +7,10 @@ import {
   ListIcon,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+
 import styles from './styles.module.css';
 
-export const Header = () => {
+export function Header() {
   const { pathname } = useLocation();
   const userData = useSelector((store) => store.userData.userData);
 
@@ -61,4 +62,4 @@ export const Header = () => {
       </nav>
     </header>
   );
-};
+}

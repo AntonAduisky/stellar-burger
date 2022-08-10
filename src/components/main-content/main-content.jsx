@@ -2,14 +2,16 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import styles from './styles.module.css';
-import Preloader from "../preloader/preloader";
-import Modal from "../modal/modal";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+
+import Preloader from '../preloader/preloader';
+import Modal from '../modal/modal';
+import BurgerConstructor from '../burger-constructor/burger-constructor';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { resetOrderError, getIngredients, resetIngredientsError } from '../../providers/actions/export';
 
-const MainContent = () => {
+import styles from './styles.module.css';
+
+function MainContent() {
   const { ingredientsRequest, ingredientsRequestFailed } = useSelector((store) => store.ingredients);
   const { orderRequestFailed } = useSelector((store) => store.order);
 
@@ -42,6 +44,6 @@ const MainContent = () => {
       )}
     </div>
   );
-};
+}
 
 export default MainContent;

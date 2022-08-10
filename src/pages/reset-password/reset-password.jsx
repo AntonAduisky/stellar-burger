@@ -1,18 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-unused-expressions */
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import {
   Input,
   Button,
   PasswordInput,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { resetPassword, setForgotPasswordState } from "../../providers/actions/user";
+} from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { resetPassword, setForgotPasswordState } from '../../providers/actions/user';
+
 import styles from './styles.module.css';
 
-export const ResetPassword = () => {
-  const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
+export function ResetPassword() {
+  const [password, setPassword] = useState('');
+  const [code, setCode] = useState('');
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,8 +41,8 @@ export const ResetPassword = () => {
 
     dispatch(resetPassword(password, code));
     dispatch(setForgotPasswordState(false));
-    setCode("");
-    setPassword("");
+    setCode('');
+    setPassword('');
     history.push('/');
   };
 
@@ -85,11 +88,11 @@ export const ResetPassword = () => {
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive">
-        {"Вспомнили пароль? "}
+        {'Вспомнили пароль? '}
         <Link className={styles.link} to="/login">
           Войти
         </Link>
       </p>
     </main>
   );
-};
+}

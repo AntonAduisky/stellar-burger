@@ -1,15 +1,17 @@
-import React, { useState, useRef } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   Input,
   Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { forgotPassword, setForgotPasswordState } from "../../providers/actions/export";
-import styles from "./styles.module.css";
+} from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
+import { forgotPassword, setForgotPasswordState } from '../../providers/actions/export';
+
+import styles from './styles.module.css';
+
+export function ForgotPassword() {
+  const [email, setEmail] = useState('');
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -21,7 +23,7 @@ export const ForgotPassword = () => {
     }
     dispatch(forgotPassword(email));
     dispatch(setForgotPasswordState(true));
-    setEmail("");
+    setEmail('');
     history.push('/reset-password');
   };
 
@@ -55,11 +57,11 @@ export const ForgotPassword = () => {
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive">
-        {"Вспомнили пароль? "}
+        {'Вспомнили пароль? '}
         <Link className={styles.link} to="/login">
           Войти
         </Link>
       </p>
     </main>
   );
-};
+}

@@ -6,21 +6,14 @@
 import React, { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-
-import { setCurrentIngredient } from '../../../../providers/actions/ingredient';
 
 import styles from './styles.module.css';
 
 function ProductCard({ item }) {
-  const dispatch = useDispatch();
   const location = useLocation();
-
-  const curentIngredient = () => {
-    dispatch(setCurrentIngredient(item));
-  };
 
   const { bun, filling } = useSelector((store) => store.burgerConstructor);
 
@@ -53,7 +46,6 @@ function ProductCard({ item }) {
     >
       <div
         className={`${styles.card} pl-4 pr-4`}
-        onClick={curentIngredient}
         ref={dragRef}
         draggable
       >

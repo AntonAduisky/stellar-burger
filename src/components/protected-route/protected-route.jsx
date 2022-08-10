@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Route, Redirect, useLocation } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const ProtectedRoute = ({ children, ...rest }) => {
+function ProtectedRoute({ children, ...rest }) {
   const { userData } = useSelector((store) => store.userData);
   const location = useLocation();
 
@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children, ...rest }) => {
       render={
         () => (userData ? (children) : (
           <Redirect to={{
-            pathname: `/login`,
+            pathname: '/login',
             state: { previousLocation: location },
           }}
           />
@@ -22,7 +22,7 @@ const ProtectedRoute = ({ children, ...rest }) => {
       }
     />
   );
-};
+}
 
 ProtectedRoute.propTypes = {
   children: PropTypes.element.isRequired,

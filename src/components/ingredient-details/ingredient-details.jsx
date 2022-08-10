@@ -1,10 +1,12 @@
 /* eslint-disable no-shadow */
 import React from 'react';
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+
+import Preloader from '../preloader/preloader';
+
 import styles from './styles.module.css';
 import NutritionValue from './components/nutrition-value';
-import Preloader from '../preloader/preloader';
 
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
 function IngredientDetails() {

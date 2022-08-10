@@ -1,21 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-unused-expressions */
-import React, { useState, useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { sendUserData } from "../../../../providers/actions/export";
-import styles from './styles.module.css';
+import React, { useState, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { sendUserData } from '../../../../providers/actions/export';
 import { getCookie } from '../../../../utils/cookie';
 
-const ProfileForm = () => {
+import styles from './styles.module.css';
+
+function ProfileForm() {
   const { userData } = useSelector((store) => store.userData);
   const dispatch = useDispatch();
   const accessToken = getCookie('accessToken');
   // eslint-disable-next-line no-undef
   const refreshToken = localStorage.getItem('refreshToken');
 
-  const [name, setName] = useState("");
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
   const nameInputRef = useRef(null);
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
@@ -120,6 +123,6 @@ const ProfileForm = () => {
       }
     </form>
   );
-};
+}
 
 export default ProfileForm;

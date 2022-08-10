@@ -1,4 +1,3 @@
-import type { TIngredientActions } from '../actions/ingredient';
 import type {
   TConstructorActions, TIngredientsActions, TOrderActions, TUserActions, TWsActions,
 } from './export';
@@ -8,7 +7,6 @@ import type { store } from '../store';
 
 export type TApplicationActions =
 | TConstructorActions
-| TIngredientActions
 | TIngredientsActions
 | TOrderActions
 | TWsActions

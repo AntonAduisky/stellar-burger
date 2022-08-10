@@ -1,22 +1,25 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, {
   useState, useRef, useEffect, useCallback,
-} from "react";
-import { Link, useHistory } from "react-router-dom";
+} from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Input,
   Button,
   PasswordInput,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { registration } from "../../providers/actions/user";
+} from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { registration } from '../../providers/actions/user';
+
 import styles from './styles.module.css';
 
-export const Register = () => {
+export function Register() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [name, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const inputRef = useRef(null);
 
   const { userData } = useSelector((store) => store.userData);
@@ -42,7 +45,6 @@ export const Register = () => {
   }, [dispatch, email, name, password]);
 
   useEffect(() => {
-    // eslint-disable-next-line no-unused-expressions
     userData && history.push('/');
   }, [userData, history]);
 
@@ -90,11 +92,11 @@ export const Register = () => {
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive">
-        {"Уже зарегистрированы? "}
+        {'Уже зарегистрированы? '}
         <Link className={styles.link} to="/login">
           Войти
         </Link>
       </p>
     </main>
   );
-};
+}

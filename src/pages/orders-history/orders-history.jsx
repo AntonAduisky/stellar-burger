@@ -1,13 +1,15 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { wsUserOrdersConnectionStart, wsUserOrdersConnectionClosed } from "../../providers/actions/ws";
-import { OrdersComponent } from "../../components/orders-component/orders-component";
-import { getCookie } from "../../utils/cookie";
-import styles from "./orders-history.module.css";
-import Preloader from "../../components/preloader/preloader";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-export const OrdersHistory = () => {
+import { wsUserOrdersConnectionStart, wsUserOrdersConnectionClosed } from '../../providers/actions/ws';
+import { OrdersComponent } from '../../components/orders-component/orders-component';
+import { getCookie } from '../../utils/cookie';
+import Preloader from '../../components/preloader/preloader';
+
+import styles from './orders-history.module.css';
+
+export function OrdersHistory() {
   const { userOrders } = useSelector((store) => store.ordersData);
   userOrders.reverse();
 
@@ -37,4 +39,4 @@ export const OrdersHistory = () => {
         }
     </ul>
   );
-};
+}

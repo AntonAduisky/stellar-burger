@@ -1,10 +1,12 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styles from './orders-info.module.css';
-import Preloader from "../preloader/preloader";
 
-export const OrdersInfo = () => {
+import Preloader from '../preloader/preloader';
+
+import styles from './orders-info.module.css';
+
+export function OrdersInfo() {
   const { total } = useSelector((store) => store.ordersData);
   const { totalToday } = useSelector((store) => store.ordersData);
   const { orders } = useSelector((store) => store.ordersData);
@@ -96,4 +98,4 @@ export const OrdersInfo = () => {
         }
     </div>
   );
-};
+}
