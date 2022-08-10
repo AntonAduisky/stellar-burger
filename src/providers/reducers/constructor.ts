@@ -4,8 +4,7 @@ import {
   ADD, DELETE, RESET, CHANGE_ORDER,
 } from '../constants/export';
 
-import type { IConstructorState } from '../types/export';
-import type { TConstructorActions } from '../actions/export';
+import type { IConstructorState, TConstructorActions } from '../types/export';
 
 const $initialState: IConstructorState = {
   bun: null,

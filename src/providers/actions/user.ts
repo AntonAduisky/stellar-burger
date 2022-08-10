@@ -14,147 +14,17 @@ import {
   CHECK_AUTH, CHECK_AUTH_CHECKED,
 } from '../constants/user';
 
+import type { AppThunk, AppDispatch } from '../types';
+import type { ILoginResponse } from '../types/api';
 import type {
-  AppDispatch, AppThunk, IError, ILoginResponse, IUser,
+  IError, ISetCheckAuth, ISetCheckAuthChecked,
+  ISetForgotPassword, ISetForgotPasswordFailed, ISetForgotPasswordSuccess, ISetGetUserData,
+  ISetGetUserDataFailed, ISetGetUserDataSuccess, ISetLogin, ISetLoginFailed, ISetLoginSuccess,
+  ISetLogout, ISetLogoutFailed, ISetLogoutSuccess, ISetRefreshToken, ISetRefreshTokenFailed,
+  ISetRefreshTokenSuccess, ISetRegistration, ISetRegistrationFailed, ISetRegistrationSuccess,
+  ISetResetPassword, ISetResetPasswordFailed, ISetResetPasswordSuccess, ISetSendUserData,
+  ISetSendUserDataFailed, ISetSendUserDataSuccess, IUser,
 } from '../types/export';
-
-export interface ISetRegistration {
-  type: typeof REGISTRATION;
-}
-export interface ISetRegistrationSuccess {
-  type: typeof REGISTRATION_SUCCESS;
-  payload: IUser;
-}
-export interface ISetRegistrationFailed {
-  type: typeof REGISTRATION_FAILED;
-}
-
-export interface ISetLogin {
-  type: typeof LOGIN;
-}
-export interface ISetLoginSuccess {
-  type: typeof LOGIN_SUCCESS;
-  payload: IUser | null;
-}
-export interface ISetLoginFailed {
-  type: typeof LOGIN_FAILED;
-  payload: string;
-}
-
-export interface ISetForgotPassword {
-  type: typeof FORGOT_PASSWORD;
-}
-export interface ISetForgotPasswordSuccess {
-  type: typeof FORGOT_PASSWORD_SUCCESS;
-}
-export interface ISetForgotPasswordFailed {
-  type: typeof FORGOT_PASSWORD_FAILED;
-}
-
-export interface ISetResetPassword {
-  type: typeof RESET_PASSWORD;
-}
-export interface ISetResetPasswordSuccess {
-  type: typeof RESET_PASSWORD_SUCCESS;
-}
-export interface ISetResetPasswordFailed {
-  type: typeof RESET_PASSWORD_FAILED;
-}
-
-export interface ISetGetUserData {
-  type: typeof GET_USER_DATA;
-}
-export interface ISetGetUserDataSuccess {
-  type: typeof GET_USER_DATA_SUCCESS;
-  payload: IUser;
-}
-export interface ISetGetUserDataFailed {
-  type: typeof GET_USER_DATA_FAILED;
-}
-
-export interface ISetSendUserData {
-  type: typeof SEND_USER_DATA;
-}
-export interface ISetSendUserDataSuccess {
-  type: typeof SEND_USER_DATA_SUCCESS;
-  payload: IUser;
-}
-export interface ISetSendUserDataFailed {
-  type: typeof SEND_USER_DATA_FAILED;
-}
-
-export interface ISetLogout {
-  type: typeof LOGOUT;
-}
-export interface ISetLogoutSuccess {
-  type: typeof LOGOUT_SUCCESS;
-}
-export interface ISetLogoutFailed {
-  type: typeof LOGOUT_FAILED;
-  payload: string;
-}
-
-export interface ISetRefreshToken {
-  type: typeof REFRESH_TOKEN;
-}
-export interface ISetRefreshTokenSuccess {
-  type: typeof REFRESH_TOKEN_SUCCESS;
-}
-export interface ISetRefreshTokenFailed {
-  type: typeof REFRESH_TOKEN_FAILED;
-  payload: string;
-}
-
-export interface ISetForgotPasswordState {
-  type: typeof SET_FORGOT_PASSWORD_STATE;
-  payload: boolean;
-}
-
-export interface ISetCheckAuth {
-  type: typeof CHECK_AUTH;
-}
-
-export interface ISetCheckAuthChecked {
-  type: typeof CHECK_AUTH_CHECKED;
-}
-
-export type TUserActions =
-| ISetRegistration
-| ISetRegistrationSuccess
-| ISetRegistrationFailed
-
-| ISetLogin
-| ISetLoginSuccess
-| ISetLoginFailed
-
-| ISetForgotPassword
-| ISetForgotPasswordSuccess
-| ISetForgotPasswordFailed
-
-| ISetResetPassword
-| ISetResetPasswordSuccess
-| ISetResetPasswordFailed
-
-| ISetGetUserData
-| ISetGetUserDataSuccess
-| ISetGetUserDataFailed
-
-| ISetSendUserData
-| ISetSendUserDataSuccess
-| ISetSendUserDataFailed
-
-| ISetLogout
-| ISetLogoutSuccess
-| ISetLogoutFailed
-
-| ISetRefreshToken
-| ISetRefreshTokenSuccess
-| ISetRefreshTokenFailed
-
-| ISetForgotPasswordState
-
-| ISetCheckAuth
-| ISetCheckAuthChecked;
 
 export const setRegistration = (): ISetRegistration => ({ type: REGISTRATION });
 export const setRegistrationSuccess = (userData: IUser): ISetRegistrationSuccess => ({ type: REGISTRATION_SUCCESS, payload: userData });

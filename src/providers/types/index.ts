@@ -1,9 +1,10 @@
+import type { TIngredientActions } from '../actions/ingredient';
+import type {
+  TConstructorActions, TIngredientsActions, TOrderActions, TUserActions, TWsActions,
+} from './export';
 import type { Action, ActionCreator } from 'redux';
 import type { ThunkAction } from 'redux-thunk';
 import type { store } from '../store';
-import type {
-  TConstructorActions, TIngredientsActions, TOrderActions, TWsActions, TIngredientActions, TUserActions,
-} from '../actions/export';
 
 export type TApplicationActions =
 | TConstructorActions

@@ -6,8 +6,7 @@ import {
   RESET_ORDER_ERROR,
 } from '../constants/export';
 
-import type { TOrderActions } from '../actions/export';
-import type { IOrderState } from '../types/export';
+import type { IOrderState, TOrderActions } from '../types/export';
 
 const $initialState: IOrderState = {
   orderNumber: null,

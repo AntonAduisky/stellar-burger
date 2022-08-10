@@ -5,8 +5,7 @@ import {
   RESET_INGREDIENTS_ERROR_STATUS,
 } from '../constants/export';
 
-import type { IIngredientsState } from '../types/export';
-import type { TIngredientsActions } from '../actions/export';
+import type { IIngredientsState, TIngredientsActions } from '../types/export';
 
 const $initialState: IIngredientsState = {
   ingredientsArray: [],

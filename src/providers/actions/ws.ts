@@ -7,88 +7,10 @@ import {
 } from '../constants/ws';
 
 import type {
-  AppThunk, AppDispatch, IOrder, IWsActions, IWsUserActions,
+  AppThunk, AppDispatch, IOrder, IWsActions, IWsUserActions, IOrderInfo, IOrderInfoLoading, IOrderInfoLoadingFailed,
+  IOrderInfoLoadingSuccess, IWsAllOrdersConnectionClosed, IWSAllOrdersConnectionStart, IWsUserOrdersConnectionClosed,
+  IWSUserOrdersConnectionStart,
 } from '../types/export';
-
-export interface IWSAllOrdersConnectionStart {
-  type: typeof WS_CONNECTION_START;
-}
-
-export interface IWSUserOrdersConnectionStart {
-  type: typeof WS_USER_ORDERS_CONNECTION_START;
-  payload: string;
-}
-
-export interface IWsAllOrdersConnectionClosed {
-  type: typeof WS_CONNECTION_CLOSED;
-}
-
-export interface IWsUserOrdersConnectionClosed {
-  type: typeof WS_USER_ORDERS_CONNECTION_CLOSED;
-}
-
-export interface IOrderInfoLoading {
-  type: typeof GET_ORDER_INFO;
-}
-
-export interface IOrderInfoLoadingSuccess {
-  type: typeof GET_ORDER_INFO_SUCCESS;
-  payload: IOrder;
-}
-
-export interface IOrderInfoLoadingFailed {
-  type: typeof GET_ORDER_INFO_FAILED;
-}
-//
-export interface IOrderInfo {
-  type: typeof CLEAN_ORDER_INFO;
-}
-
-export interface IWSAllOrdersConnectionSuccess {
-  type: typeof WS_CONNECTION_SUCCESS;
-  payload: Event;
-}
-
-export interface IWSUserOrdersConnectionSuccess {
-  type: typeof WS_USER_ORDERS_CONNECTION_SUCCESS;
-  payload: Event;
-}
-
-export interface IWSAllOrdersConnectionError {
-  type: typeof WS_CONNECTION_ERROR;
-  payload: Event;
-}
-
-export interface IWSUserOrdersConnectionError {
-  type: typeof WS_USER_ORDERS_CONNECTION_ERROR,
-  payload: Event;
-}
-
-export interface IWsGetUserOrders {
-  type: typeof WS_GET_USER_ORDERS;
-  payload: IOrder;
-}
-
-export interface IWsGetAllOrders {
-  type: typeof WS_GET_ALL_ORDERS
-  payload: IOrder;
-}
-
-export type TWsActions =
-  | IWSAllOrdersConnectionStart
-  | IWSUserOrdersConnectionStart
-  | IWsAllOrdersConnectionClosed
-  | IWsUserOrdersConnectionClosed
-  | IOrderInfoLoading
-  | IOrderInfoLoadingSuccess
-  | IOrderInfoLoadingFailed
-  | IOrderInfo
-  | IWSAllOrdersConnectionSuccess
-  | IWSUserOrdersConnectionSuccess
-  | IWSAllOrdersConnectionError
-  | IWSUserOrdersConnectionError
-  | IWsGetUserOrders
-  | IWsGetAllOrders;
 
 export const wsAllOrdersConnectionStart = (): IWSAllOrdersConnectionStart => ({
   type: WS_CONNECTION_START,

@@ -1,5 +1,4 @@
-// import { getCookie } from "../utils/cookie";
-import type { IWsActions, IWsUserActions } from '../providers/types/data';
+import type { IWsActions, IWsUserActions } from 'src/providers/types/ws';
 import type { AppDispatch, RootState } from '../providers/types';
 import type { Middleware, MiddlewareAPI } from 'redux';
 

@@ -5,31 +5,8 @@ import {
 } from '../constants/ingredients';
 
 import type {
-  AppDispatch, IIngredient, IIngredientsResponse,
+  IGetIngredientsFailed, IGetIngredientsRequest, IGetIngredientsSuccess, IResetIngredientsError, IIngredientsResponse, AppDispatch,
 } from '../types/export';
-
-export interface IResetIngredientsError {
-  type: typeof RESET_INGREDIENTS_ERROR_STATUS;
-}
-
-export interface IGetIngredientsRequest {
-  type: typeof GET_INGREDIENTS_REQUEST;
-}
-
-export interface IGetIngredientsSuccess {
-  type: typeof GET_INGREDIENTS_SUCCESS;
-  ingredients: IIngredient[];
-}
-
-export interface IGetIngredientsFailed {
-  type: typeof GET_INGREDIENTS_FAILED;
-}
-
-export type TIngredientsActions =
-  | IResetIngredientsError
-  | IGetIngredientsRequest
-  | IGetIngredientsSuccess
-  | IGetIngredientsFailed;
 
 export function resetIngredientsError(): IResetIngredientsError {
   return {

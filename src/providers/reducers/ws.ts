@@ -14,8 +14,7 @@ import {
   CLEAN_ORDER_INFO,
 } from '../constants/export';
 
-import type { TWsActions } from '../actions/export';
-import type { IWsState } from '../types/export';
+import type { IWsState, TWsActions } from '../types/export';
 
 const $initialState: IWsState = {
   wsAllOrders: false,

@@ -3,13 +3,15 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/destructuring-assignment */
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
+import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDrag } from 'react-dnd';
+
 import { setCurrentIngredient } from '../../../../providers/actions/ingredient';
+
 import styles from './styles.module.css';
 
 function ProductCard({ item }) {

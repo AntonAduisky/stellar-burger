@@ -4,33 +4,10 @@ import {
   ADD, DELETE, RESET, CHANGE_ORDER,
 } from '../constants/constructor';
 
+import type {
+  IAddItemAction, IRemoveItemAction, IResetConstructorAction, IChangeOrderIngredientAction,
+} from '../types/export';
 import type { IIngredient } from '../types/data';
-
-export interface IAddItemAction {
-  type: typeof ADD;
-  item: IIngredient;
-}
-
-export interface IRemoveItemAction {
-  type: typeof DELETE;
-  item: IIngredient;
-}
-
-export interface IResetConstructorAction {
-  type: typeof RESET;
-}
-
-export interface IChangeOrderIngredientAction {
-  type: typeof CHANGE_ORDER;
-  dragIndex: number;
-  hoverIndex: number;
-}
-
-export type TConstructorActions =
-  | IAddItemAction
-  | IRemoveItemAction
-  | IResetConstructorAction
-  | IChangeOrderIngredientAction;
 
 // dnd
 export function addItem(item: IIngredient): IAddItemAction {

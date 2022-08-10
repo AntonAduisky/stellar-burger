@@ -38,8 +38,7 @@ import {
   CHECK_AUTH_CHECKED,
 } from '../constants/export';
 
-import type { TUserActions } from '../actions/export';
-import type { IUserState } from '../types/export';
+import type { IUserState, TUserActions } from '../types/export';
 
 const $initialState: IUserState = {
   registrationRequest: false,
