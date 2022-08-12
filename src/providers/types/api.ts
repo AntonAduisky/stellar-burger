@@ -11,17 +11,17 @@ export interface IOrderResponse {
   order: IOrder;
 }
 
-export interface IRegistrationResponse {
-  success: boolean;
-  user: IUser;
-  accessToken: string;
-  refreshToken: string;
-}
+// export interface IRegistrationResponse {
+//   success: boolean;
+//   user: IUser;
+//   accessToken: string;
+//   refreshToken: string;
+// }
 
-export interface ILogoutResponse {
-  success: boolean;
-  message: string;
-}
+// export interface ILogoutResponse {
+//   success: boolean;
+//   message: string;
+// }
 
 export interface ILoginResponse {
   success: boolean;
@@ -30,13 +30,18 @@ export interface ILoginResponse {
   user: IUser;
 }
 
-export interface IRefreshTokenResponse {
-  success: boolean;
-  accessToken: string;
-  refreshToken: string;
-}
+// export interface IRefreshTokenResponse {
+//   success: boolean;
+//   accessToken: string;
+//   refreshToken: string;
+// }
 
-export interface IUserResponse {
-  success: boolean;
-  user: IUser;
-}
+// export interface IPasswordResponse {
+//   success: boolean;
+//   message: string;
+// }
+
+// export interface IUserResponse {
+//   success: boolean;
+//   user: IUser;
+// }

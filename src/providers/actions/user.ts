@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
 import api from '../../api/api-config';
@@ -66,13 +67,13 @@ export const registration: AppThunk = (email: string, name: string, password: st
   dispatch(setRegistration());
   api.postRegister(email, name, password)
     .then((res) => {
-      console.log('registration done');
+      // console.log('registration done');
       setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
       localStorage.setItem('refreshToken', res.refreshToken);
       dispatch(setRegistrationSuccess(res.user));
     })
     .catch(() => {
-      console.log('registration failed');
+      // console.log('registration failed');
       dispatch(setRegistrationFailed());
     });
 };
@@ -81,7 +82,7 @@ export const login: AppThunk = (email, password) => (dispatch: AppDispatch) => {
   dispatch(setLogin());
   api.postLogin(email, password)
     .then((res) => {
-      console.log('log in success');
+      // console.log('log in success');
       setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
       dispatch(setLoginSuccess(res));
       localStorage.setItem('refreshToken', res.refreshToken);
@@ -95,7 +96,7 @@ export const logout: AppThunk = (refreshToken) => (dispatch: AppDispatch) => {
   dispatch(setLogout());
   api.postLogout(refreshToken)
     .then(() => {
-      console.log('log out,delete cookie');
+      // console.log('log out,delete cookie');
       deleteCookie('accessToken');
       localStorage.removeItem('refreshToken');
       dispatch(setLogoutSuccess());
@@ -109,13 +110,13 @@ const refreshToken: AppThunk = (refreshToken: string) => (dispatch: AppDispatch)
   dispatch(setRefreshToken());
   api.postRefreshToken(refreshToken)
     .then((res) => {
-      console.log('token is refresh');
+      // console.log('token is refresh');
       setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
       localStorage.setItem('refreshToken', res.refreshToken);
       dispatch(setRefreshTokenSuccess());
     })
     .catch((err) => {
-      console.log('token in error');
+      // console.log('token in error');
       dispatch(setRefreshTokenFailed(err));
       logout();
       return Promise.reject(err);
@@ -132,14 +133,15 @@ export const getUserData = (accessToken: string) => (dispatch: AppDispatch) => {
       dispatch(setGetUserDataFailed());
       if (err.message === 'jwt expired' || err.message === 'You should be authorised') {
         // При передаче имени ключа возвращается значение этого ключа.
-        // @ts-ignore
-        dispatch(refreshToken(localStorage.getItem('refreshToken'), 'getUserData'));
+
+        refreshToken(localStorage.getItem('refreshToken'), 'getUserData');
       }
     });
 };
 
 export const sendUserData = (accessToken: string | null, name: string, email: string, password: string) => (dispatch: AppDispatch) => {
   dispatch(setSendUserData());
+  // @ts-ignore
   api.patchUserData(accessToken, name, email, password)
     .then((res) => {
       // @ts-ignore
@@ -147,8 +149,7 @@ export const sendUserData = (accessToken: string | null, name: string, email: st
     })
     .catch((err) => {
       if (err.message === 'jwt expired') {
-        // @ts-ignore
-        dispatch(refreshToken(localStorage.getItem('refreshToken')));
+        refreshToken(localStorage.getItem('refreshToken'));
       }
       dispatch(setSendUserDataFailed());
     });
@@ -176,12 +177,11 @@ export const resetPassword: AppThunk = (password: string, code: string) => (disp
     });
 };
 
-export const checkAuth: AppThunk = (accessToken: string, refreshToken: string | null) => function (dispatch: AppDispatch) {
+export const checkAuth: AppThunk = (accessToken: string) => function (dispatch: AppDispatch) {
   dispatch(setCheckAuth());
   if (accessToken) {
-    console.log('auth - OK');
-    // @ts-ignore
-    dispatch(getUserData(accessToken, refreshToken));
+    // console.log('auth - OK');
+    getUserData(accessToken);
   }
   dispatch(setCheckAuthSuccess());
 };
