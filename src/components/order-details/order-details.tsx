@@ -1,8 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import PropTypese from 'prop-types';
-import styles from './styles.module.css';
+import { useSelector } from 'src/utils/hooks';
+
 import doneIcon from '../../images/done.svg';
+
+import styles from './styles.module.css';
 
 /* Соержимое модалки с деталями заказа, которые устанваливаются кликом при формировании заказа */
 function OrderDetails() {

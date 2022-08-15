@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from 'src/utils/hooks';
 
 import { OrdersComponent } from '../orders-component/orders-component';
 import Preloader from '../preloader/preloader';

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-unused-expressions */
 import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import {
   Input,
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'src/utils/hooks';
 
 import { resetPassword, setForgotPasswordState } from '../../providers/actions/user';
 
@@ -16,23 +16,23 @@ import styles from './styles.module.css';
 export function ResetPassword() {
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const isPasswordForgot = useSelector((store) => store.userData.isPasswordForgot);
   // возвращает новое местоположение при каждом изменении URL
-  const location = useLocation();
+  const location = useLocation<any>();
   const { userData } = useSelector((store) => store.userData);
 
-  const onPasswordChange = (e) => {
+  const onPasswordChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setPassword(e.target.value);
   };
 
-  const onCodeChange = (e) => {
+  const onCodeChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setCode(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     if (!password || !code) {
@@ -68,6 +68,7 @@ export function ResetPassword() {
           onChange={onPasswordChange}
           value={password}
           name="password"
+          // @ts-ignore
           placeholder="Введите новый пароль"
         />
         <div className="mb-6 mt-6">

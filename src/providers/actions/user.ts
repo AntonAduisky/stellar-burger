@@ -15,7 +15,7 @@ import {
   CHECK_AUTH, CHECK_AUTH_CHECKED,
 } from '../constants/user';
 
-import type { AppThunk, AppDispatch } from '../types';
+import type { AppThunk } from '../types';
 import type { ILoginResponse } from '../types/api';
 import type {
   IError, ISetCheckAuth, ISetCheckAuthChecked,
@@ -63,7 +63,7 @@ export const setRefreshTokenFailed = (err: IError): ISetRefreshTokenFailed => ({
 export const setCheckAuth = (): ISetCheckAuth => ({ type: CHECK_AUTH });
 export const setCheckAuthSuccess = (): ISetCheckAuthChecked => ({ type: CHECK_AUTH_CHECKED });
 
-export const registration: AppThunk = (email: string, name: string, password: string) => (dispatch: AppDispatch) => {
+export const registration: AppThunk = (email: string, name: string, password: string) => (dispatch) => {
   dispatch(setRegistration());
   api.postRegister(email, name, password)
     .then((res) => {
@@ -78,21 +78,21 @@ export const registration: AppThunk = (email: string, name: string, password: st
     });
 };
 
-export const login: AppThunk = (email, password) => (dispatch: AppDispatch) => {
+export const login: AppThunk = (email, password) => (dispatch) => {
   dispatch(setLogin());
   api.postLogin(email, password)
     .then((res) => {
       // console.log('log in success');
       setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-      dispatch(setLoginSuccess(res));
       localStorage.setItem('refreshToken', res.refreshToken);
+      dispatch(setLoginSuccess(res));
     })
     .catch((err) => {
       dispatch(setLoginFailed(err));
     });
 };
 
-export const logout: AppThunk = (refreshToken) => (dispatch: AppDispatch) => {
+export const logout: AppThunk = (refreshToken) => (dispatch) => {
   dispatch(setLogout());
   api.postLogout(refreshToken)
     .then(() => {
@@ -106,56 +106,59 @@ export const logout: AppThunk = (refreshToken) => (dispatch: AppDispatch) => {
     });
 };
 
-const refreshToken: AppThunk = (refreshToken: string) => (dispatch: AppDispatch) => {
-  dispatch(setRefreshToken());
-  api.postRefreshToken(refreshToken)
-    .then((res) => {
+const refreshToken: AppThunk = (refreshToken: string) => (dispatch) => {
+  if (!refreshToken) {
+    throw new Error('Token does not exist in storage');
+  } else {
+    dispatch(setRefreshToken());
+    api.postRefreshToken(refreshToken)
+      .then((res) => {
       // console.log('token is refresh');
-      setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-      localStorage.setItem('refreshToken', res.refreshToken);
-      dispatch(setRefreshTokenSuccess());
-    })
-    .catch((err) => {
+        setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+        localStorage.setItem('refreshToken', res.refreshToken);
+        dispatch(setRefreshTokenSuccess());
+      })
+      .catch((err) => {
       // console.log('token in error');
-      dispatch(setRefreshTokenFailed(err));
-      logout();
-      return Promise.reject(err);
-    });
+        dispatch(logout());
+        dispatch(setRefreshTokenFailed(err));
+        return Promise.reject(err);
+      });
+  }
 };
 
-export const getUserData = (accessToken: string) => (dispatch: AppDispatch) => {
+export const getUserData: AppThunk = (accessToken: string) => (dispatch) => {
   dispatch(setGetUserData());
   api.getUserData(accessToken)
     .then((res) => {
       dispatch(setGetUserDataSuccess(res.user));
     })
     .catch((err) => {
-      dispatch(setGetUserDataFailed());
       if (err.message === 'jwt expired' || err.message === 'You should be authorised') {
         // При передаче имени ключа возвращается значение этого ключа.
-
         refreshToken(localStorage.getItem('refreshToken'), 'getUserData');
+      } else {
+        dispatch(setGetUserDataFailed());
       }
     });
 };
 
-export const sendUserData = (accessToken: string | null, name: string, email: string, password: string) => (dispatch: AppDispatch) => {
+export const sendUserData: AppThunk = (accessToken: string, name: string, email: string, password: string) => (dispatch) => {
   dispatch(setSendUserData());
-  // @ts-ignore
   api.patchUserData(accessToken, name, email, password)
     .then((res) => {
       // @ts-ignore
       dispatch(setSendUserDataSuccess(res));
     })
     .catch((err) => {
-      if (err.message === 'jwt expired') {
-        refreshToken(localStorage.getItem('refreshToken'));
+      if (err.message === 'jwt expired' || err.message === 'You should be authorised') {
+        dispatch(refreshToken(localStorage.getItem('refreshToken')));
       }
       dispatch(setSendUserDataFailed());
     });
 };
 
-export const forgotPassword: AppThunk = (email: string) => (dispatch: AppDispatch) => {
+export const forgotPassword: AppThunk = (email: string) => (dispatch) => {
   dispatch(setForgotPassword());
   api.postEmail(email)
     .then(() => {
@@ -166,22 +169,22 @@ export const forgotPassword: AppThunk = (email: string) => (dispatch: AppDispatc
     });
 };
 
-export const resetPassword: AppThunk = (password: string, code: string) => (dispatch: AppDispatch) => {
+export const resetPassword: AppThunk = (password: string, token: string) => (dispatch) => {
   dispatch(setResetPassword());
-  api.postResetPassword(password, code)
+  api.postResetPassword(password, token)
     .then(() => {
-      setResetPasswordSuccess();
+      dispatch(setResetPasswordSuccess());
     })
     .catch(() => {
-      setResetPasswordFailed();
+      dispatch(setResetPasswordFailed());
     });
 };
 
-export const checkAuth: AppThunk = (accessToken: string) => function (dispatch: AppDispatch) {
+export const checkAuth: AppThunk = (accessToken: string) => (dispatch) => {
   dispatch(setCheckAuth());
   if (accessToken) {
     // console.log('auth - OK');
-    getUserData(accessToken);
+    dispatch(getUserData(accessToken));
   }
   dispatch(setCheckAuthSuccess());
 };

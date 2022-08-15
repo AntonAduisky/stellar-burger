@@ -1,8 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import styles from './styles.module.css';
 
-function NutritionValue({ text, value }) {
+import type { INutritionValue } from './nutrition-value.props';
+
+function NutritionValue({ text, value }: INutritionValue) {
   return (
     <li className={`${styles.nutritionListItem}`}>
       <p className="text text_type_main-default text_color_inactive mb-2">{text}</p>
@@ -10,10 +12,5 @@ function NutritionValue({ text, value }) {
     </li>
   );
 }
-
-NutritionValue.propTypes = {
-  text: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-};
 
 export default NutritionValue;

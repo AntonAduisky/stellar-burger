@@ -3,22 +3,26 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable max-len */
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'src/utils/hooks';
 
 import Preloader from '../preloader/preloader';
 import { getOrderInfo } from '../../providers/actions/export';
 
 import styles from './orders-info-details.module.css';
 
-export function OrdersInfoDetails({ isPopup }) {
+import type { IIngredient } from 'src/providers/types/export';
+import type { IOrderInfoDetailsProps } from './order-info-detail.props';
+
+export function OrdersInfoDetails({ isPopup }: IOrderInfoDetailsProps) {
   const dispatch = useDispatch();
-  const { orderNumber } = useParams();
+
+  const { orderNumber } = useParams<any>();
   const { orderInfo } = useSelector((store) => store.ordersData);
   const { ingredientsArray } = useSelector((store) => store.ingredients);
 
-  const foundIngredients = orderInfo?.ingredients.map((orderIngredient) => ingredientsArray.find((ingredient) => ingredient._id === orderIngredient));
+  const foundIngredients = orderInfo?.ingredients.map((orderIngredient: unknown) => ingredientsArray.find((ingredient: IIngredient) => ingredient._id === orderIngredient));
 
   const calculateSum = () => {
     let sum = 0;
@@ -31,14 +35,14 @@ export function OrdersInfoDetails({ isPopup }) {
     return sum;
   };
 
-  const checkStatus = (status) => {
+  const checkStatus = (status: string) => {
     if (status === 'pending') {
       return 'Готовится';
     }
     return 'Выполнен';
   };
 
-  const checkStyles = (status) => {
+  const checkStyles = (status: string) => {
     if (status === 'pending') {
       return {
         color: '#00CCCC',
@@ -47,7 +51,7 @@ export function OrdersInfoDetails({ isPopup }) {
     return {};
   };
 
-  function formatDate(str) {
+  function formatDate(str: string | number | Date) {
     return new Date(str).toLocaleString();
   }
 

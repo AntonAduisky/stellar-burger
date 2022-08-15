@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-unused-expressions */
 import React, { useState, useRef, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'src/utils/hooks';
 
 import { sendUserData } from '../../../../providers/actions/export';
 import { getCookie } from '../../../../utils/cookie';
@@ -10,6 +10,7 @@ import { getCookie } from '../../../../utils/cookie';
 import styles from './styles.module.css';
 
 function ProfileForm() {
+  // @ts_ignore
   const { userData } = useSelector((store) => store.userData);
   const dispatch = useDispatch();
   const accessToken = getCookie('accessToken');
@@ -19,9 +20,9 @@ function ProfileForm() {
   const [name, setName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const nameInputRef = useRef(null);
-  const emailInputRef = useRef(null);
-  const passwordInputRef = useRef(null);
+  const nameInputRef = useRef<any>(null);
+  const emailInputRef = useRef<any>(null);
+  const passwordInputRef = useRef<any>(null);
   const [isDataChanged, setIsDataChanged] = useState(false);
 
   const onNameClick = () => nameInputRef.current.focus();
@@ -30,32 +31,36 @@ function ProfileForm() {
 
   const onPasswordClick = () => passwordInputRef.current.focus();
 
-  const onNameChange = (evt) => {
+  const onNameChange = (evt: { target: { value: any; }; }) => {
     const { value } = evt.target;
     setName(value);
+    // @ts-ignore
     value === userData.name ? setIsDataChanged(false) : setIsDataChanged(true);
   };
 
-  const onEmailChange = (evt) => {
+  const onEmailChange = (evt: { target: { value: any; }; }) => {
     const { value } = evt.target;
     setLogin(value);
+    // @ts-ignore
     value === userData.email ? setIsDataChanged(false) : setIsDataChanged(true);
   };
 
-  const onPasswordChange = (evt) => {
+  const onPasswordChange = (evt: { target: { value: any; }; }) => {
     const { value } = evt.target;
     setPassword(value);
     value === password ? setIsDataChanged(false) : setIsDataChanged(true);
   };
 
-  const onSubmit = (evt) => {
+  const onSubmit = (evt: { preventDefault: () => void; }) => {
     evt.preventDefault();
     dispatch(sendUserData(`Bearer ${accessToken}`, name, login, password, refreshToken));
   };
 
-  const onCancelEditing = (evt) => {
+  const onCancelEditing = (evt: { preventDefault: () => void; }) => {
     evt.preventDefault();
+    // @ts-ignore
     setName(userData.name);
+    // @ts-ignore
     setLogin(userData.email);
     setPassword('');
   };

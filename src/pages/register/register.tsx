@@ -3,12 +3,12 @@ import React, {
   useState, useRef, useEffect, useCallback,
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   Input,
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'src/utils/hooks';
 
 import { registration } from '../../providers/actions/user';
 
@@ -24,15 +24,15 @@ export function Register() {
 
   const { userData } = useSelector((store) => store.userData);
 
-  const onNameChange = (e) => {
+  const onNameChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setUserName(e.target.value);
   };
 
-  const onEmailChange = (e) => {
+  const onEmailChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setEmail(e.target.value);
   };
 
-  const onPasswordChange = (e) => {
+  const onPasswordChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setPassword(e.target.value);
   };
 

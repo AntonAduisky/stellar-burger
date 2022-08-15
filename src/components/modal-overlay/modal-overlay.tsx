@@ -5,8 +5,10 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.css';
 
+import type { IModalOverlay } from './modal-overlay.props';
+
 /* Полупрозрачная подложка под модальное окно */
-function ModalOverlay({ handleClick }) {
+function ModalOverlay({ handleClick }: IModalOverlay) {
   return <div className={styles.overlay} onClick={handleClick} />;
 }
 

@@ -3,7 +3,7 @@ import React, { useEffect, useCallback } from 'react';
 import {
   Switch, Route, useLocation, useHistory,
 } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'src/utils/hooks';
 
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
@@ -35,7 +35,7 @@ export function Constructor() {
 
   const dispatch = useDispatch();
 
-  const location = useLocation();
+  const location = useLocation<any>();
   const background = location.state && location.state.background;
   const history = useHistory();
 
@@ -57,7 +57,7 @@ export function Constructor() {
   }, [dispatch, history]);
 
   useEffect(() => {
-    dispatch(checkAuth(`Bearer ${accessToken}`, refreshToken));
+    dispatch(checkAuth(`Bearer ${accessToken}`));
     dispatch(getIngredients());
   }, [dispatch, accessToken, refreshToken]);
 
@@ -77,7 +77,7 @@ export function Constructor() {
           <ForgotPassword />
         </Route>
         <Route exact path="/ingredients/:id">
-          <IngredientDetails title="Детали ингредиента" />
+          <IngredientDetails />
         </Route>
         <Route exact path="/reset-password">
           <ResetPassword />

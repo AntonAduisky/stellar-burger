@@ -20,10 +20,9 @@ import FillingIngredients from './components/filling-ingredients/filling-ingredi
 import FillingMain from './components/filling-main/filling-main';
 import FillingBun from './components/filling-bun/filling-bun';
 
-import type { IBurgerConstructor } from './burger-constructor.props';
 import type { IIngredient } from 'src/providers/types/data';
 
-function BurgerConstructor(): IBurgerConstructor {
+function BurgerConstructor() {
   const {
     bun, filling, totalPrice, ingredientIds,
   } = useSelector((store) => store.burgerConstructor);

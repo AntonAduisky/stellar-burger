@@ -2,12 +2,12 @@
 /* eslint-disable no-unused-expressions */
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   Input,
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'src/utils/hooks';
 
 import { login } from '../../providers/actions/user';
 
@@ -18,19 +18,19 @@ export function Login() {
   const [password, setPassword] = useState('');
   const inputRef = useRef(null);
   const dispatch = useDispatch();
-  const history = useHistory();
-  const location = useLocation();
+  const history = useHistory<Location>();
+  const location = useLocation<any>();
   const { userData } = useSelector((store) => store.userData);
 
-  const onEmailChange = (e) => {
+  const onEmailChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setEmail(e.target.value);
   };
 
-  const onPasswordChange = (e) => {
+  const onPasswordChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (!email || !password) {
       return;
@@ -68,7 +68,6 @@ export function Login() {
             onChange={onPasswordChange}
             value={password}
             name="password"
-            placeholder="Пароль"
           />
         </div>
         <Button disabled={!(email && password)} type="primary" size="medium">

@@ -2,24 +2,28 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from 'src/utils/hooks';
 
 import { formatDate } from '../../constants/variables';
 
 import styles from './orders-component.module.css';
 
-export function OrdersComponent({ order, isHistory = false }) {
+import type { IIngredient } from 'src/providers/types/export';
+import type { IOrderComponentProps } from './orders-component.props';
+
+export function OrdersComponent({ order, isHistory = false }: IOrderComponentProps) {
   const location = useLocation();
   const {
     status, number, createdAt, name, ingredients,
   } = order;
   const { ingredientsArray } = useSelector((store) => store.ingredients);
 
-  const findIngredient = (product, products) => products.find((foundIngredient) => foundIngredient._id === product);
+  // eslint-disable-next-line max-len
+  const findIngredient = (product: string | IIngredient, products: IIngredient[]) => products.find((foundIngredient) => foundIngredient._id === product);
 
-  const checkStatus = (condition) => {
+  const checkStatus = (condition: string) => {
     if (condition === 'done') {
       return 'Создан';
     }
@@ -27,8 +31,8 @@ export function OrdersComponent({ order, isHistory = false }) {
 
   const calculateSum = () => {
     let sum = 0;
-    ingredients.forEach((ingredient) => {
-      const find = ingredientsArray.find((orderIngredient) => orderIngredient._id === ingredient);
+    ingredients.forEach((ingredient: string | IIngredient) => {
+      const find = ingredientsArray.find((orderIngredient: IIngredient) => orderIngredient._id === ingredient);
       if (find?.price) {
         sum += find.price;
       }

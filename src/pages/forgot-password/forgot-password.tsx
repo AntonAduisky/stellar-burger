@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import {
   Input,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch } from 'src/utils/hooks';
 
 import { forgotPassword, setForgotPasswordState } from '../../providers/actions/export';
 
@@ -16,7 +16,7 @@ export function ForgotPassword() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (!email) {
       return;
@@ -27,7 +27,7 @@ export function ForgotPassword() {
     history.push('/reset-password');
   };
 
-  const onEmailChange = (e) => {
+  const onEmailChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setEmail(e.target.value);
   };
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'src/utils/hooks';
 
 import Preloader from '../preloader/preloader';
 
@@ -10,7 +10,7 @@ import NutritionValue from './components/nutrition-value';
 
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
 function IngredientDetails() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const { ingredientsArray } = useSelector((store) => store.ingredients);
   const ingredient = ingredientsArray.find((ingredient) => ingredient._id === id);
 

@@ -14,12 +14,12 @@ export const ProductType = {
   },
 };
 
-export function formatDate(string) {
+export function formatDate(string: string | number | Date) {
   return new Date(string).toLocaleString();
 }
 
 // eslint-disable-next-line consistent-return
-export const checkStatus = (status) => {
+export const checkStatus = (status: string) => {
   if (status === 'done') {
     return 'Создан';
   }

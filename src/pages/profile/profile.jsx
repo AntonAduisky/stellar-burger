@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { NavLink, Route, useRouteMatch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
+import { useDispatch } from '../../utils/hooks';
 import { logout } from '../../providers/actions/user';
 import { OrdersHistory } from '../orders-history/orders-history';
 

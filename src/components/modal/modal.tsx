@@ -9,13 +9,15 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 
 import styles from './styles.module.css';
 
+import type { IModal } from './modal.props';
+
 const rootModalContainer = document.getElementById('modals');
 
 /* Передача props для модального окна, используются в компоненте App */
-const Modal = ({
+function Modal({
   closeModal, heading, children,
-}) => {
-  const handleEscKeydown = (e) => {
+}: IModal) {
+  const handleEscKeydown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       closeModal();
     }
@@ -41,9 +43,9 @@ const Modal = ({
       </div>
       <ModalOverlay handleClick={closeModal} />
     </section>,
-    rootModalContainer,
+    rootModalContainer!,
   );
-};
+}
 
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
