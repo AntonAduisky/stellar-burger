@@ -3,8 +3,10 @@ import React from 'react';
 
 import styles from './styles.module.css';
 
+import type { IFillingBun } from './filling-bun.props';
+
 // eslint-disable-next-line react/prop-types
-function FillingBun({ located }) {
+function FillingBun({ located }: IFillingBun) {
   return (
     <div
       className={

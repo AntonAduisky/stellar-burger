@@ -3,7 +3,9 @@ import React from 'react';
 
 import styles from './styles.module.css';
 
-function FillingIngredients({ check }) {
+import type { IFillingIngredients } from './filling-ingredients.props';
+
+function FillingIngredients({ check }: IFillingIngredients) {
   return (
     <div
       className={

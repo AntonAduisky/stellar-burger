@@ -2,8 +2,9 @@ import React from 'react';
 
 import styles from './styles.module.css';
 
-// eslint-disable-next-line react/prop-types
-function FillingMain({ check }) {
+import type { IFillingMain } from './filling-main.props';
+
+function FillingMain({ check }: IFillingMain) {
   return (
     <div
       className={

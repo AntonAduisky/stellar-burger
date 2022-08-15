@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-unused-expressions */
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
   ConstructorElement,
@@ -9,6 +8,7 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
+import { useSelector, useDispatch } from 'src/utils/hooks';
 
 import { postOrderRequest, removeItem, addItem } from '../../providers/actions/export';
 import { ariaLable } from '../../constants/export';
@@ -20,7 +20,10 @@ import FillingIngredients from './components/filling-ingredients/filling-ingredi
 import FillingMain from './components/filling-main/filling-main';
 import FillingBun from './components/filling-bun/filling-bun';
 
-function BurgerConstructor() {
+import type { IBurgerConstructor } from './burger-constructor.props';
+import type { IIngredient } from 'src/providers/types/data';
+
+function BurgerConstructor(): IBurgerConstructor {
   const {
     bun, filling, totalPrice, ingredientIds,
   } = useSelector((store) => store.burgerConstructor);
@@ -30,18 +33,18 @@ function BurgerConstructor() {
 
   const accessToken = getCookie('accessToken');
 
-  const postOrder = (orderData) => {
+  const postOrder = (orderData: string[]) => {
     userData && dispatch(postOrderRequest(`Bearer ${accessToken}`, orderData));
     !userData && history.push('/login');
   };
 
-  const handleDelete = (item) => {
+  const handleDelete = (item: IIngredient) => {
     dispatch(removeItem(item));
   };
 
   const [{ isHover }, drop] = useDrop({
     accept: 'ingredient',
-    drop(item) {
+    drop(item: IIngredient) {
       dispatch(addItem(item));
     },
     collect: (monitor) => ({
@@ -99,7 +102,7 @@ function BurgerConstructor() {
       <div className={`${styles.order} mt-10`}>
         <span className="text text_type_digits-medium mr-10">
           {totalPrice}
-          <CurrencyIcon />
+          <CurrencyIcon type="secondary" />
         </span>
         <Button disabled={!(bun && filling.length > 0)} type="primary" size="medium" onClick={() => postOrder(ingredientIds)}>
           Оформить заказ

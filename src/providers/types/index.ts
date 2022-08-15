@@ -1,3 +1,4 @@
+import type { rootReducer } from '../reducers';
 import type {
   TConstructorActions, TIngredientsActions, TOrderActions, TUserActions, TWsActions,
 } from './export';
@@ -12,7 +13,7 @@ export type TApplicationActions =
 | TWsActions
 | TUserActions;
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
 
 export type AppDispatch = typeof store.dispatch;
 
