@@ -13,6 +13,8 @@ import { login } from '../../providers/actions/user';
 
 import styles from './styles.module.css';
 
+import type { ChangeEvent, FormEvent } from 'react';
+
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,15 +24,15 @@ export function Login() {
   const location = useLocation<any>();
   const { userData } = useSelector((store) => store.userData);
 
-  const onEmailChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const onPasswordChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email || !password) {
       return;

@@ -14,6 +14,8 @@ import { registration } from '../../providers/actions/user';
 
 import styles from './styles.module.css';
 
+import type { ChangeEvent, FormEvent } from 'react';
+
 export function Register() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -24,19 +26,19 @@ export function Register() {
 
   const { userData } = useSelector((store) => store.userData);
 
-  const onNameChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+  const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value);
   };
 
-  const onEmailChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const onPasswordChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!name || !email || !password) {
       return;

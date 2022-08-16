@@ -9,6 +9,8 @@ import { getCookie } from '../../../../utils/cookie';
 
 import styles from './styles.module.css';
 
+import type { FormEvent, ChangeEvent, SyntheticEvent } from 'react';
+
 function ProfileForm() {
   // @ts_ignore
   const { userData } = useSelector((store) => store.userData);
@@ -31,32 +33,32 @@ function ProfileForm() {
 
   const onPasswordClick = () => passwordInputRef.current.focus();
 
-  const onNameChange = (evt: { target: { value: any; }; }) => {
+  const onNameChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
     setName(value);
     // @ts-ignore
     value === userData.name ? setIsDataChanged(false) : setIsDataChanged(true);
   };
 
-  const onEmailChange = (evt: { target: { value: any; }; }) => {
+  const onEmailChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
     setLogin(value);
     // @ts-ignore
     value === userData.email ? setIsDataChanged(false) : setIsDataChanged(true);
   };
 
-  const onPasswordChange = (evt: { target: { value: any; }; }) => {
+  const onPasswordChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
     setPassword(value);
     value === password ? setIsDataChanged(false) : setIsDataChanged(true);
   };
 
-  const onSubmit = (evt: { preventDefault: () => void; }) => {
+  const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(sendUserData(`Bearer ${accessToken}`, name, login, password, refreshToken));
   };
 
-  const onCancelEditing = (evt: { preventDefault: () => void; }) => {
+  const onCancelEditing = (evt: SyntheticEvent) => {
     evt.preventDefault();
     // @ts-ignore
     setName(userData.name);

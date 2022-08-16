@@ -13,6 +13,8 @@ import { resetPassword, setForgotPasswordState } from '../../providers/actions/u
 
 import styles from './styles.module.css';
 
+import type { ChangeEvent, FormEvent } from 'react';
+
 export function ResetPassword() {
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
@@ -24,15 +26,15 @@ export function ResetPassword() {
   const location = useLocation<any>();
   const { userData } = useSelector((store) => store.userData);
 
-  const onPasswordChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const onCodeChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+  const onCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!password || !code) {
