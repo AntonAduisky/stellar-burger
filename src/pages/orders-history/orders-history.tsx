@@ -9,8 +9,6 @@ import Preloader from '../../components/preloader/preloader';
 
 import styles from './orders-history.module.css';
 
-import type { IOrder } from 'src/providers/types/export';
-
 export function OrdersHistory() {
   const { userOrders } = useSelector((store) => store.ordersData);
   userOrders.reverse();
@@ -32,7 +30,7 @@ export function OrdersHistory() {
           userOrders.length > 0 ? (
             <>
               {
-                userOrders.map((order: IOrder, idx: number) => (
+                userOrders.map((order, idx) => (
                   <OrdersComponent key={idx} isHistory order={order} />
                 ))
               }

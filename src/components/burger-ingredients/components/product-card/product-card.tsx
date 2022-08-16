@@ -6,13 +6,15 @@
 import React, { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { useSelector } from '../../../../utils/hooks';
 
 import styles from './styles.module.css';
 
-function ProductCard({ item }) {
+import type { IIngredientCard } from './product-card.props';
+
+function ProductCard({ item }: IIngredientCard) {
   const location = useLocation();
 
   const { bun, filling } = useSelector((store) => store.burgerConstructor);
@@ -29,7 +31,7 @@ function ProductCard({ item }) {
   );
 
   // счетчик наличия ингрединта в меню
-  const setCount = useMemo(() => {
+  const setCount: any = useMemo(() => {
     if (item.type === 'bun') {
       return bun && item._id === bun._id ? 1 : null;
     }
@@ -57,16 +59,12 @@ function ProductCard({ item }) {
         />
         <p className="text text_type_digits-default mt-1 mb-1">
           {item.price}
-          <CurrencyIcon />
+          <CurrencyIcon type="secondary" />
         </p>
         <h3 className="text text_type_main-default">{item.name}</h3>
       </div>
     </Link>
   );
 }
-
-ProductCard.propTypes = {
-  item: PropTypes.object.isRequired,
-};
 
 export default ProductCard;

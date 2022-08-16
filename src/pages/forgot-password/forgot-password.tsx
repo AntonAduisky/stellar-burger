@@ -10,13 +10,15 @@ import { forgotPassword, setForgotPasswordState } from '../../providers/actions/
 
 import styles from './styles.module.css';
 
+import type { FormEvent, ChangeEvent } from 'react';
+
 export function ForgotPassword() {
   const [email, setEmail] = useState('');
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email) {
       return;
@@ -27,7 +29,7 @@ export function ForgotPassword() {
     history.push('/reset-password');
   };
 
-  const onEmailChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 

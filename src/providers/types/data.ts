@@ -3,6 +3,10 @@ export interface IIngredientState {
   viewedIngredient: IIngredient | null;
 }
 
+export type TIngredients = {
+  type: string;
+  name: string;
+};
 export interface IIngredient {
   calories: number;
   carbohydrates: number;

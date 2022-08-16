@@ -78,7 +78,7 @@ export const registration: AppThunk = (email: string, name: string, password: st
     });
 };
 
-export const login: AppThunk = (email, password) => (dispatch) => {
+export const login: AppThunk = (email: string, password: string) => (dispatch) => {
   dispatch(setLogin());
   api.postLogin(email, password)
     .then((res) => {
@@ -92,7 +92,7 @@ export const login: AppThunk = (email, password) => (dispatch) => {
     });
 };
 
-export const logout: AppThunk = (refreshToken) => (dispatch) => {
+export const logout: AppThunk = (refreshToken: string) => (dispatch) => {
   dispatch(setLogout());
   api.postLogout(refreshToken)
     .then(() => {

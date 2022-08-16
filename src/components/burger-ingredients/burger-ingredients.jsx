@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 
+import { useSelector } from '../../utils/hooks';
 import { ProductType, ariaLable } from '../../constants/export';
 
 import styles from './styles.module.css';
