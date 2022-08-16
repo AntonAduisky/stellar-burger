@@ -136,7 +136,7 @@ export const getUserData: AppThunk = (accessToken: string) => (dispatch) => {
     .catch((err) => {
       if (err.message === 'jwt expired' || err.message === 'You should be authorised') {
         // При передаче имени ключа возвращается значение этого ключа.
-        refreshToken(localStorage.getItem('refreshToken'), 'getUserData');
+        dispatch(refreshToken(localStorage.getItem('refreshToken'), 'getUserData'));
       } else {
         dispatch(setGetUserDataFailed());
       }
