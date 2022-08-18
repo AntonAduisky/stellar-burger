@@ -53,7 +53,7 @@ function ProductCard({ item }: IIngredientCard) {
       >
         {setCount > 0 && <Counter count={setCount} size="default" />}
         <img
-          className={isDrag ? `${styles.cardIsDrag}` : null}
+          className={isDrag ? `${styles.cardIsDrag}` : ''}
           src={item.image}
           alt={item.name}
         />
