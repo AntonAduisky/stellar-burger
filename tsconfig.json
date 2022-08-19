@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "node",
@@ -9,6 +9,8 @@
       "dom.iterable",
       "esnext"
     ],
+    "rootDir": "./",
+    "baseUrl": "./",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -21,14 +23,15 @@
     "noEmit": true,
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*/.tsx",
-    "**/*.js",
-    "**/*/.js",
-    "**/*/.jsx",
-    "**/*/.css",
-    "src/index.tsx"
+    // "**/*.ts",
+    // "**/*.tsx",
+    // "**/*/.tsx",
+    // "**/*.js",
+    // "**/*/.js",
+    // "**/*/.jsx",
+    // "**/*/.css",
+    // "src/index.tsx",
+    "src"
   ],
   "exclude": [
     "docs",
